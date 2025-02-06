@@ -87,6 +87,26 @@ public class RegisterFragment extends Fragment {
     }
 
 
+    private void signUp(View view) {
+        myauth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+                .addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_registerFragment_to_homeFragment);
+                Log.i(TAG, "signIn Success: ");
+            } else {
+                Log.i(TAG, "signIn Fail: "+task.getException().getMessage());
+            }
+
+        });
+    }
+
+    private void signout() {
+        myauth.signOut();
+    }
+
+
+
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 123);
@@ -110,35 +130,6 @@ public class RegisterFragment extends Fragment {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(idToken, null);
         myauth.signInWithCredential(authCredential).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.i(TAG, "signInWithGoogle Success: ");
-            } else {
-                Log.i(TAG, "signInWithGoogle Fail: "+task.getException().getMessage());
-            }
-        });
-    }
-
-    private void signUp(View view) {
-        myauth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                .addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_registerFragment_to_homeFragment);
-                Log.i(TAG, "signIn Success: ");
-            } else {
-                Log.i(TAG, "signIn Fail: "+task.getException().getMessage());
-            }
-
-        });
-    }
-
-    private void signout() {
-        myauth.signOut();
-    }
-
-    private void login(View view) {
-        myauth.createUserWithEmailAndPassword("nour@gmail.com", "123456789").addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-
                 Log.i(TAG, "signInWithGoogle Success: ");
             } else {
                 Log.i(TAG, "signInWithGoogle Fail: "+task.getException().getMessage());

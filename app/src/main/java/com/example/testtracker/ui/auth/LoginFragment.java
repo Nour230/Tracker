@@ -7,19 +7,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.testtracker.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment {
 MaterialButton login;
 MaterialButton Skip;
 TextView signup;
+    EditText email, pass;
 
+    ImageButton google;
+
+    private static final String TAG = "MainActivity";
+    private FirebaseAuth myauth;
+    private GoogleSignInClient googleSignInClient;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -45,7 +58,13 @@ TextView signup;
         super.onViewCreated(view, savedInstanceState);
         login = view.findViewById(R.id.btnLogin);
         Skip = view.findViewById(R.id.gustLogin);
+        email = view.findViewById(R.id.edtEmail);
+        pass = view.findViewById(R.id.edtPass);
         signup = view.findViewById(R.id.signup);
+        myauth = FirebaseAuth.getInstance();
+        google = view.findViewById(R.id.googleLogin);
+        googleSignInClient = GoogleSignIn.getClient(getActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN);
+
         //logic////////////////////////////////////////////
         signup.setOnClickListener(v->{
             Navigation.findNavController(view)
@@ -56,8 +75,20 @@ TextView signup;
                     .navigate(R.id.action_loginFragment_to_homeFragment);
         });
         login.setOnClickListener(v->{
-            Navigation.findNavController(view)
-                    .navigate(R.id.action_loginFragment_to_homeFragment);
+            login(v);
+        });
+    }
+
+    private void login(View view) {
+        myauth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_loginFragment_to_homeFragment);
+
+                Log.i(TAG, "signInWithGoogle Success: ");
+            } else {
+                Log.i(TAG, "signInWithGoogle Fail: "+task.getException().getMessage());
+            }
         });
     }
 }

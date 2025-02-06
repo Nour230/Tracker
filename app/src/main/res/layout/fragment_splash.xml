@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/Wave"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/splash"
+        android:layout_width="409dp"
+        android:layout_height="807dp"
+        android:src="@drawable/newsplash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
