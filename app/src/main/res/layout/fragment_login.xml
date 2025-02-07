@@ -19,6 +19,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="@string/Email"
+        android:textColorHint="@color/white"
         android:inputType="text"
         android:paddingLeft="20dp"
         android:textColor="@color/white"
