@@ -1,19 +1,19 @@
-package com.example.testtracker.dailymeal.model;
+package com.example.testtracker.main_app.dailymeal.model;
 
 import com.example.testtracker.db.MealLocalDataSource;
-import com.example.testtracker.network.MealRemoteDataSource;
+import com.example.testtracker.network.RemoteDataSource;
 import com.example.testtracker.network.NetworkCallBack;
 
-public class MealRepositoryImpl implements MealRemoteDataSource {
+public class MealRepositoryImpl implements RemoteDataSource {
      MealLocalDataSource localDataSource;
-     MealRemoteDataSource remoteDataSource;
+     RemoteDataSource remoteDataSource;
      private static MealRepositoryImpl repo = null;
 
-     private MealRepositoryImpl(MealLocalDataSource localDataSource, MealRemoteDataSource remoteDataSource){
+     private MealRepositoryImpl(MealLocalDataSource localDataSource, RemoteDataSource remoteDataSource){
          this.localDataSource = localDataSource;
          this.remoteDataSource = remoteDataSource;
      }
-     public static MealRepositoryImpl getInstance(MealLocalDataSource localDataSource, MealRemoteDataSource remoteDataSource){
+     public static MealRepositoryImpl getInstance(MealLocalDataSource localDataSource, RemoteDataSource remoteDataSource){
          if(repo == null){
              repo = new MealRepositoryImpl(localDataSource, remoteDataSource);
          }

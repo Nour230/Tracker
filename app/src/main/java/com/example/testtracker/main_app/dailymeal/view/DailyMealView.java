@@ -1,6 +1,6 @@
-package com.example.testtracker.dailymeal.view;
+package com.example.testtracker.main_app.dailymeal.view;
 
-import com.example.testtracker.dailymeal.model.Meal;
+import com.example.testtracker.main_app.dailymeal.model.Meal;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.testtracker.dailymeal.model;
+package com.example.testtracker.main_app.dailymeal.model;
 
 import java.util.ArrayList;
 import java.util.List;

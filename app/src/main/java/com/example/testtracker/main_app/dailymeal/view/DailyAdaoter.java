@@ -1,4 +1,4 @@
-package com.example.testtracker.dailymeal.view;
+package com.example.testtracker.main_app.dailymeal.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
-import com.example.testtracker.dailymeal.model.Meal;
+import com.example.testtracker.main_app.dailymeal.model.Meal;
 
 import java.util.List;
 

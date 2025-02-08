@@ -6,7 +6,8 @@ import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.testtracker.dailymeal.model.Meal;
+import com.example.testtracker.main_app.allcategories.model.Category;
+import com.example.testtracker.main_app.dailymeal.model.Meal;
 import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.network.Repo;
 
@@ -32,6 +33,15 @@ private Repo repo;
         } else {
             Log.e(TAG, "onSuccess: products list is null");
         }    }
+
+    @Override
+    public void onCategoriesSuccess(List<Category> categories) {
+        if (categories != null) {
+            Log.i(TAG, "onCategoriesSuccess: CallBack" + categories.get(0).getStrCategory());
+        } else {
+            Log.e(TAG, "onSuccess: products list is null");
+        }
+    }
 
     @Override
     public void onFailure(String message) {

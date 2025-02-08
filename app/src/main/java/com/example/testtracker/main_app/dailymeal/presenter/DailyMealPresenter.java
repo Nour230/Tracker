@@ -1,6 +1,6 @@
-package com.example.testtracker.dailymeal.presenter;
+package com.example.testtracker.main_app.dailymeal.presenter;
 
-import com.example.testtracker.dailymeal.model.Meal;
+import com.example.testtracker.main_app.dailymeal.model.Meal;
 
 public interface DailyMealPresenter {
     public void getProducts();

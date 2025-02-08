@@ -1,4 +1,4 @@
-package com.example.testtracker.dailymeal.model;
+package com.example.testtracker.main_app.dailymeal.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
