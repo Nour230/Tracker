@@ -1,4 +1,4 @@
-package com.example.testtracker.adapters;
+package com.example.testtracker.dailymeal.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
-import com.example.testtracker.network.Meal;
+import com.example.testtracker.dailymeal.model.Meal;
 
 import java.util.List;
 
@@ -20,8 +20,9 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
     private final static String TAG = "productClient";
     private final Context context;
     private final List<Meal> dailyList;
-
-    public DailyAdaoter(List<Meal> dailyList, Context context) {
+private final OnMealClickListener listener;
+    public DailyAdaoter(List<Meal> dailyList, Context context, OnMealClickListener listener) {
+        this.listener = listener;
         this.dailyList = dailyList;
         this.context = context;
     }
@@ -37,7 +38,9 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
     @Override
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         Meal meal = dailyList.get(position);
-        holder.name.setText(meal.getStrMeal());
+        holder.name.setText("Name: "+meal.getStrMeal());
+        holder.area.setText("Area: "+meal.getStrArea());
+        holder.category.setText("Category: "+meal.getStrCategory());
         Glide.with(context).load(meal.getStrMealThumb()).into(holder.image);
     }
 
@@ -45,14 +48,21 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
     public int getItemCount() {
         return dailyList.size();
     }
+    public void updateData(List<Meal> newProducts) {
+        this.dailyList.clear();
+        this.dailyList.addAll(newProducts);
+        notifyDataSetChanged();
+    }
     public static class MealViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
+        TextView name,area,category;
         ImageView image;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.mealName);
             image = itemView.findViewById(R.id.mealImage);
+            area = itemView.findViewById(R.id.mealArea);
+            category = itemView.findViewById(R.id.mealCat);
         }
     }
 }

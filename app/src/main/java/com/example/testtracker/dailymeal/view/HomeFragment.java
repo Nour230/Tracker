@@ -1,5 +1,6 @@
-package com.example.testtracker.ui.main_app;
+package com.example.testtracker.dailymeal.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,31 +9,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.testtracker.R;
-import com.example.testtracker.adapters.DailyAdaoter;
-import com.example.testtracker.network.Meal;
-import com.example.testtracker.network.NetworkCallBack;
+import com.example.testtracker.dailymeal.presenter.DailyMealPresenterImpl;
+import com.example.testtracker.db.MealLocalDataSourceImpl;
+import com.example.testtracker.dailymeal.model.Meal;
+import com.example.testtracker.dailymeal.model.MealRepositoryImpl;
 import com.example.testtracker.network.Repo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements NetworkCallBack {
+public class HomeFragment extends Fragment implements OnMealClickListener,DailyMealView {
 
     DailyAdaoter adapter;
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
+    DailyMealPresenterImpl presenter;
     private static final String TAG = "MainActivity";
 
-    private List<Meal> dailyList = new ArrayList<>();
-    Repo MealClient;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -58,22 +57,30 @@ public class HomeFragment extends Fragment implements NetworkCallBack {
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new DailyAdaoter(dailyList, getContext());
+        adapter = new DailyAdaoter(new ArrayList<>(), getContext(),this);
         recyclerView.setAdapter(adapter);
-        MealClient = Repo.getInstance();
-        MealClient.makeNetworkCall(this);
+        presenter = new DailyMealPresenterImpl(this,
+                 MealRepositoryImpl.getInstance(
+                        MealLocalDataSourceImpl.getInstance(getContext()),
+                        Repo.getInstance()));
+        presenter.getProducts();
     }
 
     @Override
-    public void onSuccess(List<Meal> products) {
-        Log.i(TAG, "onSuccess:"+products.get(0).getStrMeal());
-        this.dailyList.clear();
-        this.dailyList.addAll(products);
-        adapter.notifyDataSetChanged();
+    public void showData(List<Meal> products) {
+        adapter.updateData(products);
     }
 
     @Override
-    public void onFailure(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    public void showError(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(message);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onMealClick(Meal meal) {
+        presenter.addToFav(meal);
     }
 }

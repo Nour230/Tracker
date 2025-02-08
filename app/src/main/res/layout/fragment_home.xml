@@ -5,14 +5,14 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main_app.HomeFragment"
+    tools:context=".dailymeal.view.HomeFragment"
     android:background="@color/home_background">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dayrec"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

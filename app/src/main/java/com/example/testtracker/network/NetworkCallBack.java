@@ -1,5 +1,7 @@
 package com.example.testtracker.network;
 
+import com.example.testtracker.dailymeal.model.Meal;
+
 import java.util.List;
 
 public interface NetworkCallBack {

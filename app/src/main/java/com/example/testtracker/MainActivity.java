@@ -5,11 +5,8 @@ import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.testtracker.network.Meal;
+import com.example.testtracker.dailymeal.model.Meal;
 import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.network.Repo;
 
