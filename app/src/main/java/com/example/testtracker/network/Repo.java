@@ -3,6 +3,7 @@ package com.example.testtracker.network;
 import android.util.Log;
 
 import com.example.testtracker.main_app.allcategories.model.AllCategories;
+import com.example.testtracker.main_app.allcountries.model.AllCounties;
 import com.example.testtracker.main_app.dailymeal.model.AllMeals;
 
 import retrofit2.Call;
@@ -16,6 +17,7 @@ public class Repo implements RemoteDataSource {
     private static final String Base_url = "https://www.themealdb.com/api/json/v1/1/";
     private final DailyMealService dailymealservice;
     private final AllCategoriesService categoriesService;
+    private final AllCountriesService countriesService;
     private static Repo client = null;
 
     private Repo(){
@@ -24,6 +26,7 @@ public class Repo implements RemoteDataSource {
                 .build();
         dailymealservice = retrofit.create(DailyMealService.class);
         categoriesService = retrofit.create(AllCategoriesService.class);
+        countriesService = retrofit.create(AllCountriesService.class);
     }
     public static Repo getInstance() {
         if (client == null) {
@@ -60,6 +63,23 @@ public class Repo implements RemoteDataSource {
 
           @Override
           public void onFailure(Call<AllCategories> call, Throwable t) {
+              Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+              networkCallBack.onFailure(t.getMessage());
+              t.printStackTrace();
+          }
+      });
+
+      Call<AllCounties>countryCall = countriesService.getAllCountries();
+      countryCall.enqueue(new Callback<AllCounties>() {
+
+          @Override
+          public void onResponse(Call<AllCounties> call, Response<AllCounties> response) {
+              Log.i(TAG, "onResponse: CallBack "+response.raw()+response.body());
+              networkCallBack.onCountrySuccess(response.body().getCountries());
+          }
+
+          @Override
+          public void onFailure(Call<AllCounties> call, Throwable t) {
               Log.i(TAG, "onFailure: CallBack"+t.getMessage());
               networkCallBack.onFailure(t.getMessage());
               t.printStackTrace();

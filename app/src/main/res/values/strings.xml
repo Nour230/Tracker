@@ -16,4 +16,7 @@
     <string name="search">Search</string>
     <string name="fav">Fav</string>
     <string name="plan">Plan</string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="all_categories">All Categories</string>
+    <string name="all_countries">All Countries</string>
 </resources>

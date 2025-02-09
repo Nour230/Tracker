@@ -1,6 +1,7 @@
 package com.example.testtracker.main_app.dailymeal.presenter;
 
 import com.example.testtracker.main_app.allcategories.model.Category;
+import com.example.testtracker.main_app.allcountries.model.Country;
 import com.example.testtracker.main_app.dailymeal.view.DailyMealView;
 import com.example.testtracker.main_app.dailymeal.model.Meal;
 import com.example.testtracker.main_app.dailymeal.model.MealRepositoryImpl;
@@ -39,6 +40,11 @@ public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBa
 
     @Override
     public void onCategoriesSuccess(List<Category> categories) {
+
+    }
+
+    @Override
+    public void onCountrySuccess(List<Country> countries) {
 
     }
 

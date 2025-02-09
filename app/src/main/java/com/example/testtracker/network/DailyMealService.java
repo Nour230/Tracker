@@ -2,6 +2,7 @@ package com.example.testtracker.network;
 
 
 import com.example.testtracker.main_app.allcategories.model.AllCategories;
+import com.example.testtracker.main_app.allcountries.model.AllCounties;
 import com.example.testtracker.main_app.dailymeal.model.AllMeals;
 
 import retrofit2.Call;
@@ -14,6 +15,11 @@ import retrofit2.http.GET;
 interface AllCategoriesService {
     @GET("categories.php")
     Call<AllCategories> getAllCategories();
+}
+
+interface AllCountriesService {
+     @GET("list.php?a=list")
+    Call<AllCounties> getAllCountries();
 }
 
 

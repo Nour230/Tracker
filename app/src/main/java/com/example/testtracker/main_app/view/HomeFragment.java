@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import com.example.testtracker.R;
 import com.example.testtracker.main_app.allcategories.model.CategoriesRepositoryImpl;
@@ -20,6 +21,13 @@ import com.example.testtracker.main_app.allcategories.presenter.CategoriesPresen
 import com.example.testtracker.main_app.allcategories.view.CategoriesAdapter;
 import com.example.testtracker.main_app.allcategories.view.CategoriesView;
 import com.example.testtracker.main_app.allcategories.view.OnCaregoryClickListener;
+import com.example.testtracker.main_app.allcountries.model.Country;
+import com.example.testtracker.main_app.allcountries.model.CountryRepositoryImpl;
+import com.example.testtracker.main_app.allcountries.presenter.CountriesPresenter;
+import com.example.testtracker.main_app.allcountries.presenter.CountriesPresenterImpl;
+import com.example.testtracker.main_app.allcountries.view.CountriesView;
+import com.example.testtracker.main_app.allcountries.view.OnContryClickListener;
+import com.example.testtracker.main_app.allcountries.view.countriesAdapter;
 import com.example.testtracker.main_app.dailymeal.presenter.DailyMealPresenterImpl;
 import com.example.testtracker.db.MealLocalDataSourceImpl;
 import com.example.testtracker.main_app.dailymeal.model.Meal;
@@ -33,14 +41,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnMealClickListener, DailyMealView, OnCaregoryClickListener, CategoriesView {
+public class HomeFragment extends Fragment implements OnMealClickListener, CountriesView,OnContryClickListener, DailyMealView, OnCaregoryClickListener, CategoriesView {
 
     DailyAdaoter dailyadapter;
     CategoriesAdapter categoryadapter;
+    countriesAdapter countryadapter;
+    GridView countrygridview;
     LinearLayoutManager dailylinearLayoutManager,categorylinearLayoutManager;
     RecyclerView dailyrecyclerView,categoryrecyclerView;
     DailyMealPresenterImpl mealpresenter;
     CategoriesPresenterImpl catpresenter;
+    CountriesPresenterImpl countrypresenter;
     private static final String TAG = "MainActivity";
 
     public HomeFragment() {
@@ -66,6 +77,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Daily
         super.onViewCreated(view, savedInstanceState);
         dailyrecyclerView = view.findViewById(R.id.dayrec);
         categoryrecyclerView = view.findViewById(R.id.catrec);
+        countrygridview = view.findViewById(R.id.countryrec);
 
         //linearLayoutManager
         dailylinearLayoutManager = new LinearLayoutManager(getContext());
@@ -78,10 +90,12 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Daily
         categoryrecyclerView.setLayoutManager(categorylinearLayoutManager);
 
         //adapter
+        countryadapter = new countriesAdapter(new ArrayList<>(), getContext(),this);
         dailyadapter = new DailyAdaoter(new ArrayList<>(), getContext(),this);
         categoryadapter = new CategoriesAdapter(new ArrayList<>(), getContext(),this);
         dailyrecyclerView.setAdapter(dailyadapter);
         categoryrecyclerView.setAdapter(categoryadapter);
+        countrygridview.setAdapter(countryadapter);
 
 
         //presenter
@@ -94,6 +108,11 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Daily
                 CategoriesRepositoryImpl.getInstance(
                         Repo.getInstance()));
         catpresenter.getCategories();
+        countrypresenter = new CountriesPresenterImpl(this,
+                CountryRepositoryImpl.getInstance(
+                        Repo.getInstance()));
+        countrypresenter.getCountries();
+
     }
 
     @Override
@@ -105,6 +124,11 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Daily
     @Override
     public void showCatData(List<Category> products) {
      categoryadapter.updateData(products);
+    }
+
+    @Override
+    public void showCuntryData(List<Country> countries) {
+        countryadapter.updateData(countries);
     }
 
     @Override
@@ -121,7 +145,12 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Daily
     }
 
     @Override
-    public void onMealClick(Category category) {
+    public void onCategoryClick(Category category) {
         //show all categories
+    }
+
+    @Override
+    public void onContryClick(Country country) {
+
     }
 }

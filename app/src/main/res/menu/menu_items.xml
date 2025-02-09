@@ -6,14 +6,14 @@
         android:title="" />
 
     <item android:title=""
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/search"
         android:id="@+id/search"/>
 
     <item android:title=""
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/heart"
         android:id="@+id/fav"/>
 
     <item android:title=""
-        android:icon="@drawable/home_icon"
-        android:id="@+id/plan"/>
+        android:icon="@drawable/calendar"
+        android:id="@+id/plan" />
 </menu>
