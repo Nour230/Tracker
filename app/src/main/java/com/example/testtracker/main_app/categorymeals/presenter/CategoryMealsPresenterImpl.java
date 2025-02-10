@@ -23,8 +23,21 @@ public class CategoryMealsPresenterImpl implements NetworkCallBack, CategoryMeal
         Log.d(TAG, "Fetching meals for category: " + category);
         repo.getAllCategoriesMeals(category,this);
     }
+
+    @Override
+    public void getMealsByCountry(String country) {
+        Log.d(TAG, "Fetching meals for country: " + country);
+        repo.getAllCountriesMeals(country,this);
+    }
+
     @Override
     public void onCategoryMealsSuccess(List<CategoryMeals> meal) {
+        view.showCatData(meal);
+    }
+
+    @Override
+    public void onCountryMealsSuccess(List<CategoryMeals> meal) {
+        Log.i(TAG, "onCountryMealsSuccess: ");
         view.showCatData(meal);
     }
 

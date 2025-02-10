@@ -13,5 +13,7 @@ import java.util.List;
 
      default void onCountrySuccess(List<Country> countries){}
      default void onCategoryMealsSuccess(List<CategoryMeals> meal){}
-      void onFailure(String message);
+     default void onCountryMealsSuccess(List<CategoryMeals> meal){}
+
+     void onFailure(String message);
 }

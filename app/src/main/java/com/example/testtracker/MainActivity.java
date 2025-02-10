@@ -29,13 +29,15 @@ private Repo repo;
         setContentView(R.layout.activity_main);
         repo = Repo.getInstance();
         repo.makeNetworkCall(this);
-        repo.getMealsByCategory("Seafood",this);
+        //repo.getMealsByCategory("Canadian",this);
+        repo.getMealsByCountry("Canadian",this);
+
 
     }
 
 
     @Override
-    public void onCategoryMealsSuccess (List<CategoryMeals> categories) {
+    public void onCountryMealsSuccess (List<CategoryMeals> categories) {
         if (categories != null) {
             Log.i(TAG, "onCategoryMealsSuccess: CallBack" + categories.get(0).getStrMeal());
         } else {
