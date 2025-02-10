@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
-    android:backgroundTint="@color/home_background"
-    >
+<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/catCard"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginBottom="20dp"-->
+<!--    android:backgroundTint="@color/home_background"-->
+<!--    >-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/day_card_background"
-        android:paddingBottom="20dp">
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/catCard"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/day_card_background"
+    android:paddingBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
         <ImageView
@@ -32,7 +36,7 @@
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="52dp"
-            android:fontFamily="@font/open_sans_italic"
+            android:fontFamily="@font/dancing_script_bold"
             android:text="TextView"
             android:textColor="@color/home_background"
             android:textSize="18sp"
@@ -41,4 +45,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+<!--</androidx.cardview.widget.CardView>-->

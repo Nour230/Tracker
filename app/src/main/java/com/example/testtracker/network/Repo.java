@@ -2,9 +2,10 @@ package com.example.testtracker.network;
 
 import android.util.Log;
 
-import com.example.testtracker.main_app.allcategories.model.AllCategories;
-import com.example.testtracker.main_app.allcountries.model.AllCounties;
-import com.example.testtracker.main_app.dailymeal.model.AllMeals;
+import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
+import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
+import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
+import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,28 +16,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Repo implements RemoteDataSource {
     private static final String TAG = "productClient";
     private static final String Base_url = "https://www.themealdb.com/api/json/v1/1/";
-    private final DailyMealService dailymealservice;
-    private final AllCategoriesService categoriesService;
-    private final AllCountriesService countriesService;
+    private final AllNetWorkService mealservice;
+
     private static Repo client = null;
 
     private Repo(){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Base_url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        dailymealservice = retrofit.create(DailyMealService.class);
-        categoriesService = retrofit.create(AllCategoriesService.class);
-        countriesService = retrofit.create(AllCountriesService.class);
-    }
+        mealservice = retrofit.create(AllNetWorkService.class);
+}
     public static Repo getInstance() {
         if (client == null) {
             client = new Repo();
         }
         return client;}
     public void makeNetworkCall(NetworkCallBack networkCallBack){
-        Call<AllMeals> mealcall = dailymealservice.getAllMeals();
+        //Daily Meal CallBack
+        Call<AllMeals> mealcall = mealservice.getAllMeals();
       mealcall.enqueue(new Callback<AllMeals>(){
-
           @Override
           public void onResponse(Call<AllMeals> call, Response<AllMeals> response) {
               if(response.isSuccessful()){
@@ -44,7 +42,6 @@ public class Repo implements RemoteDataSource {
                   networkCallBack.onSuccess(response.body().getMeals());
               }
           }
-
           @Override
           public void onFailure(Call<AllMeals> call, Throwable t) {
               Log.i(TAG, "onFailure: CallBack"+t.getMessage());
@@ -53,7 +50,8 @@ public class Repo implements RemoteDataSource {
           }
       });
 
-      Call<AllCategories>catCall = categoriesService.getAllCategories();
+      //Categories CallBack
+      Call<AllCategories>catCall = mealservice.getAllCategories();
       catCall.enqueue(new Callback<AllCategories>() {
           @Override
           public void onResponse(Call<AllCategories> call, Response<AllCategories> response) {
@@ -69,12 +67,13 @@ public class Repo implements RemoteDataSource {
           }
       });
 
-      Call<AllCounties>countryCall = countriesService.getAllCountries();
+      //Countries CallBack
+      Call<AllCounties>countryCall = mealservice.getAllCountries();
       countryCall.enqueue(new Callback<AllCounties>() {
 
           @Override
           public void onResponse(Call<AllCounties> call, Response<AllCounties> response) {
-              Log.i(TAG, "onResponse: CallBack "+response.raw()+response.body());
+              Log.i(TAG, "onResponse: AllCounties "+response.raw()+response.body());
               networkCallBack.onCountrySuccess(response.body().getCountries());
           }
 
@@ -86,6 +85,21 @@ public class Repo implements RemoteDataSource {
           }
       });
     }
+    public void getMealsByCategory(String category, NetworkCallBack networkCallBack){
+        Call<CategoryAllMeals> mealcall = mealservice.getMealsByCategory(category);
+        mealcall.enqueue(new Callback<CategoryAllMeals>() {
+            @Override
+            public void onResponse(Call<CategoryAllMeals> call, Response<CategoryAllMeals> response) {
+                Log.i(TAG, "onResponse: CategoryAllMeals"+response.raw()+response.body());
+                networkCallBack.onCategoryMealsSuccess(response.body().getMeals());
+            }
 
-
+            @Override
+            public void onFailure(Call<CategoryAllMeals> call, Throwable t) {
+                Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+                networkCallBack.onFailure(t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
 }
