@@ -12,4 +12,14 @@
     <string name="skip">Skip</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="fav">Fav</string>
+    <string name="plan">Plan</string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="all_categories">All Categories</string>
+    <string name="all_countries">All Countries</string>
+    <string name="favourites">Favourites</string>
+    <string name="welcom_to_our_app">Welcom to our App</string>
+    <string name="add_to_fav">Add To Fav</string>
 </resources>

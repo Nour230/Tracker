@@ -42,7 +42,20 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.testtracker.ui.main_app.HomeFragment"
+        android:name="com.example.testtracker.main_app.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoriesMealsFragment"
+            app:destination="@id/categoriesMealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesMealsFragment"
+        android:name="com.example.testtracker.main_app.categorymeals.view.CategoriesMealsFragment"
+        android:label="fragment_categories_meals"
+        tools:layout="@layout/fragment_categories_meals" >
+        <argument
+            android:name="CategoryName"
+            app:argType="string" />
+    </fragment>
 </navigation>

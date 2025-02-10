@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -38,11 +39,23 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation platform('com.google.firebase:firebase-bom:33.8.0')
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth:23.1.0'
-    implementation 'com.google.android.gms:play-services-auth:21.3.0'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation "androidx.navigation:navigation-fragment:2.5.3"
-    implementation "androidx.navigation:navigation-ui:2.5.3"
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.auth.v2320
+    implementation libs.play.services.auth
+    implementation libs.material.v150
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+    implementation libs.material.v1110
+
+    //retrofit
+
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.glide
+
+    //Room
+    implementation (libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+
 }
