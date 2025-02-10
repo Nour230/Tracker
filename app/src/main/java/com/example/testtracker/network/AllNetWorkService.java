@@ -21,6 +21,9 @@ public interface AllNetWorkService {
 
      @GET("filter.php")
      Call<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
+
+     @GET("filter.php")
+    Call<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
 }
 
 

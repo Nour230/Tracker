@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,13 +148,19 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     }
 
     @Override
-    public void onCategoryClick(String category,View view) {
-        HomeFragmentDirections.ActionHomeFragmentToCategoriesMealsFragment action = HomeFragmentDirections.actionHomeFragmentToCategoriesMealsFragment(category);
+    public void onCategoryClick(String category, View view) {
+        HomeFragmentDirections.ActionHomeFragmentToCategoriesMealsFragment action =
+                HomeFragmentDirections.actionHomeFragmentToCategoriesMealsFragment(category);
+        action.setIsCountry(false); // Set flag to indicate it's a category
         Navigation.findNavController(view).navigate(action);
     }
 
     @Override
-    public void onContryClick(Country country) {
-
+    public void onContryClick(String country, View view) {
+        HomeFragmentDirections.ActionHomeFragmentToCategoriesMealsFragment action =
+                HomeFragmentDirections.actionHomeFragmentToCategoriesMealsFragment(country);
+        action.setIsCountry(true); // Set flag to indicate it's a country
+        Navigation.findNavController(view).navigate(action);
     }
+
 }

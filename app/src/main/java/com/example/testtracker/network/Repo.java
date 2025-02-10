@@ -102,4 +102,22 @@ public class Repo implements RemoteDataSource {
             }
         });
     }
+
+    public void getMealsByCountry(String country, NetworkCallBack networkCallBack){
+        Call<CategoryAllMeals> mealcall = mealservice.getMealsByCountry(country);
+        mealcall.enqueue(new Callback<CategoryAllMeals>() {
+            @Override
+            public void onResponse(Call<CategoryAllMeals> call, Response<CategoryAllMeals> response) {
+                Log.i(TAG, "onResponse: getMealsByCountry"+response.raw()+response.body());
+                networkCallBack.onCountryMealsSuccess(response.body().getMeals());
+            }
+
+            @Override
+            public void onFailure(Call<CategoryAllMeals> call, Throwable t) {
+                Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+                networkCallBack.onFailure(t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
 }

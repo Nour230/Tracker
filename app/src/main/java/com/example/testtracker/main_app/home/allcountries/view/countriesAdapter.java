@@ -53,6 +53,7 @@ public class countriesAdapter extends BaseAdapter {
        }
        Country country = cuntryList.get(position);
        holder.name.setText(country.getStrArea());
+       convertView.setOnClickListener(view -> listener.onContryClick(country.getStrArea(),view));
         return convertView;
     }
     public void updateData(List<Country> newProducts) {

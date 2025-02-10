@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
     RecyclerView recyclerView;
     CategoryMealsPresenterImpl presenter;
     TextView name;
+    private static final String TAG = "MainActivity";
+
 
     public CategoriesMealsFragment() {
         // Required empty public constructor
@@ -59,7 +62,19 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         presenter = new CategoryMealsPresenterImpl(this,
                 CategoryMealsReposetoryImpl.getInstance(Repo.getInstance()));
         String categoryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
-        presenter.getMealsByCategory(categoryName); // Pass to presenter
+        Log.i(TAG, "onViewCreated: "+categoryName);
+        String categoryOrCountryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
+        boolean isCountry = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getIsCountry();
+
+        Log.i(TAG, "onViewCreated: Name=" + categoryOrCountryName + " | isCountry=" + isCountry);
+
+        // Use the flag to determine the appropriate API call
+        if (isCountry) {
+            presenter.getMealsByCountry(categoryOrCountryName);
+        } else {
+            presenter.getMealsByCategory(categoryOrCountryName);
+        }
+
 
     }
 
