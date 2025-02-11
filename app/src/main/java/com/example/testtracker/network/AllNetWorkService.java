@@ -5,7 +5,8 @@ import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
 import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
 import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
 import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
-import com.example.testtracker.main_app.mealdetails.view.AllIngrediants;
+import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -28,6 +29,8 @@ public interface AllNetWorkService {
 
      @GET("list.php?i=list")
      Call<AllIngrediants> getAllIngredients();
+     @GET("lookup.php")
+     Call<MealDetails> getMealDetails(@Query("i") String id);
 }
 
 

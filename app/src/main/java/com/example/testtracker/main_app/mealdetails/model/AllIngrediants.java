@@ -1,4 +1,4 @@
-package com.example.testtracker.main_app.mealdetails.view;
+package com.example.testtracker.main_app.mealdetails.model;
 
 import java.util.List;
 

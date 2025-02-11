@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.testtracker.R;
+import com.example.testtracker.db.MealDAO;
 import com.example.testtracker.main_app.home.allcategories.model.CategoriesRepositoryImpl;
 import com.example.testtracker.main_app.home.allcategories.model.Category;
 import com.example.testtracker.main_app.home.allcategories.presenter.CategoriesPresenterImpl;
@@ -36,6 +37,7 @@ import com.example.testtracker.main_app.home.dailymeal.model.MealRepositoryImpl;
 import com.example.testtracker.main_app.home.dailymeal.view.DailyAdaoter;
 import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
 import com.example.testtracker.main_app.home.dailymeal.view.OnMealClickListener;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 import com.example.testtracker.network.Repo;
 
 import java.util.ArrayList;
@@ -143,8 +145,11 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     }
 
     @Override
-    public void onMealClick(Meal meal) {
-        mealpresenter.addToFav(meal);
+    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
+        Log.i(TAG, "showMealDetails: "+mealDetails.getStrMeal());
+        HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action =
+                HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealDetails);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override
@@ -163,4 +168,12 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         Navigation.findNavController(view).navigate(action);
     }
 
+
+    @Override
+    public void onMealClick(String mealId, View view) {
+        Log.i(TAG, "onMealClick: "+mealId);
+        if (mealpresenter != null) {
+            mealpresenter.fetchMealDetails(mealId);
+        }
+    }
 }

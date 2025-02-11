@@ -97,5 +97,9 @@
         <action
             android:id="@+id/action_mealDetailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="meal"
+            app:argType="com.example.testtracker.main_app.mealdetails.model.MealDetails$MealsDTO"
+            app:nullable="true" />
     </fragment>
 </navigation>

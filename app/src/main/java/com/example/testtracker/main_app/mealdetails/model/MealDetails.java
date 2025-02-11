@@ -1,5 +1,6 @@
-package com.example.testtracker.main_app.mealdetails.view;
+package com.example.testtracker.main_app.mealdetails.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MealDetails {
@@ -14,7 +15,7 @@ public class MealDetails {
         this.meals = meals;
     }
 
-    public static class MealsDTO {
+    public static class MealsDTO implements Serializable {
         private String idMeal;
         private String strMeal;
         private String strCategory;
