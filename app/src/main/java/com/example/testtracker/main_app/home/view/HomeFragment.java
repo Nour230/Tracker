@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
 
     @Override
     public void showMealDetails(MealDetails.MealsDTO mealDetails) {
-        Log.i(TAG, "showMealDetails: "+mealDetails.getStrMeal());
+        Log.i(TAG, "showMealDetails: "+mealDetails.getStrIngredient4());
         HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action =
                 HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealDetails);
         Navigation.findNavController(requireView()).navigate(action);
