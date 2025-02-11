@@ -4,16 +4,31 @@ import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
 import com.example.testtracker.main_app.home.allcategories.model.Category;
 import com.example.testtracker.main_app.home.allcountries.model.Country;
 import com.example.testtracker.main_app.home.dailymeal.model.Meal;
+import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 
 import java.util.List;
 
- public interface NetworkCallBack {
-     default void onSuccess(List<Meal> products){}
-     default void onCategoriesSuccess(List<Category> categories){}
+public interface NetworkCallBack {
+    default void onSuccess(List<Meal> products) {
+    }
 
-     default void onCountrySuccess(List<Country> countries){}
-     default void onCategoryMealsSuccess(List<CategoryMeals> meal){}
-     default void onCountryMealsSuccess(List<CategoryMeals> meal){}
+    default void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
+    }
 
-     void onFailure(String message);
+    default void onCategoriesSuccess(List<Category> categories) {
+    }
+
+    default void onCountrySuccess(List<Country> countries) {
+    }
+
+    default void onCategoryMealsSuccess(List<CategoryMeals> meal) {
+    }
+
+    default void onCountryMealsSuccess(List<CategoryMeals> meal) {
+    }
+
+    default void onMealSussecc(List<MealDetails.MealsDTO> meals){}
+
+    void onFailure(String message);
 }

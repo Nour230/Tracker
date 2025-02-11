@@ -3,6 +3,7 @@ package com.example.testtracker.main_app.home.dailymeal.presenter;
 import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
 import com.example.testtracker.main_app.home.dailymeal.model.Meal;
 import com.example.testtracker.main_app.home.dailymeal.model.MealRepositoryImpl;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBa
     public void getProducts() {
         repo.getAllMeals(this);
     }
+    public void fetchMealDetails(String mealId) {
+        repo.getMealDetails(mealId, this);}
 
     @Override
     public void addToFav(Meal meal) {
@@ -37,7 +40,14 @@ public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBa
     }
 
     @Override
+    public void onMealSussecc(List<MealDetails.MealsDTO> meals) {
+        view.showMealDetails(meals.get(0));
+    }
+
+    @Override
     public void onFailure(String message) {
         view.showError(message);
     }
+
+
 }

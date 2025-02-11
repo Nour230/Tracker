@@ -6,6 +6,8 @@ import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
 import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
 import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
 import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
+import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +86,25 @@ public class Repo implements RemoteDataSource {
               t.printStackTrace();
           }
       });
+      //ingrediants CallBack
+        Call<AllIngrediants>ingCall = mealservice.getAllIngredients();
+        ingCall.enqueue(new Callback<AllIngrediants>() {
+            @Override
+            public void onResponse(Call<AllIngrediants> call, Response<AllIngrediants> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    networkCallBack.onIngrediantSuccess(response.body().getMeals());
+                } else {
+                    networkCallBack.onFailure("Failed to fetch meal details.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllIngrediants> call, Throwable t) {
+                Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+                networkCallBack.onFailure(t.getMessage());
+                t.printStackTrace();
+            }
+        });
     }
     public void getMealsByCategory(String category, NetworkCallBack networkCallBack){
         Call<CategoryAllMeals> mealcall = mealservice.getMealsByCategory(category);
@@ -120,4 +141,26 @@ public class Repo implements RemoteDataSource {
             }
         });
     }
+
+    @Override
+    public void getMealDetails(String id, NetworkCallBack networkCallBack) {
+        Call<MealDetails>meal = mealservice.getMealDetails(id);
+        meal.enqueue(new Callback<MealDetails>() {
+
+            @Override
+            public void onResponse(Call<MealDetails> call, Response<MealDetails> response) {
+                Log.i(TAG, "onResponse: "+response.body().getMeals().get(0).getStrMeal());
+                networkCallBack.onMealSussecc(response.body().getMeals());
+            }
+
+            @Override
+            public void onFailure(Call<MealDetails> call, Throwable t) {
+                Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+                networkCallBack.onFailure(t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
+
+
 }

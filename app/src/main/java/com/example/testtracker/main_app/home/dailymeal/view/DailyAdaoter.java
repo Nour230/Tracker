@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,11 @@ private final OnMealClickListener listener;
         holder.area.setText("Area: "+meal.getStrArea());
         holder.category.setText("Category: "+meal.getStrCategory());
         Glide.with(context).load(meal.getStrMealThumb()).into(holder.image);
+        holder.cardView.setOnClickListener(v -> {
+            if (meal != null && listener != null) {
+                listener.onMealClick(meal.getIdMeal(), v); // Ensure getIdMeal() returns the correct ID
+            }
+        });
     }
 
     @Override
@@ -56,6 +62,7 @@ private final OnMealClickListener listener;
     public static class MealViewHolder extends RecyclerView.ViewHolder {
         TextView name,area,category;
         ImageView image;
+        CardView cardView;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +70,7 @@ private final OnMealClickListener listener;
             image = itemView.findViewById(R.id.mealImage);
             area = itemView.findViewById(R.id.mealArea);
             category = itemView.findViewById(R.id.mealCat);
+            cardView = itemView.findViewById(R.id.daymeal);
         }
     }
 }
