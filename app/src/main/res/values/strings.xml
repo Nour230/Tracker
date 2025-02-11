@@ -22,4 +22,5 @@
     <string name="favourites">Favourites</string>
     <string name="welcom_to_our_app">Welcom to our App</string>
     <string name="add_to_fav">Add To Fav</string>
+    <string name="emptyfav">No Favorite Meals</string>
 </resources>

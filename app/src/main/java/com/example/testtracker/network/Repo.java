@@ -6,6 +6,7 @@ import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
 import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
 import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
 import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
+import com.example.testtracker.main_app.mealdetails.view.AllIngrediants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +85,21 @@ public class Repo implements RemoteDataSource {
               t.printStackTrace();
           }
       });
+      //ingrediants CallBack
+        Call<AllIngrediants>ingCall = mealservice.getAllIngredients();
+        ingCall.enqueue(new Callback<AllIngrediants>() {
+            @Override
+            public void onResponse(Call<AllIngrediants> call, Response<AllIngrediants> response) {
+                networkCallBack.onIngrediantSuccess(response.body().getMeals());
+            }
+
+            @Override
+            public void onFailure(Call<AllIngrediants> call, Throwable t) {
+                Log.i(TAG, "onFailure: CallBack"+t.getMessage());
+                networkCallBack.onFailure(t.getMessage());
+                t.printStackTrace();
+            }
+        });
     }
     public void getMealsByCategory(String category, NetworkCallBack networkCallBack){
         Call<CategoryAllMeals> mealcall = mealservice.getMealsByCategory(category);

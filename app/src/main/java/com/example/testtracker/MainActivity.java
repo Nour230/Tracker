@@ -8,6 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
+import com.example.testtracker.main_app.mealdetails.view.AllIngrediants;
 import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.network.Repo;
 
@@ -33,8 +34,14 @@ private Repo repo;
         repo.getMealsByCountry("Canadian",this);
 
 
+
     }
 
+
+    @Override
+    public void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
+        Log.i(TAG, "onIngrediantSuccess: "+ingredients.get(0).getStrIngredient());
+    }
 
     @Override
     public void onCountryMealsSuccess (List<CategoryMeals> categories) {

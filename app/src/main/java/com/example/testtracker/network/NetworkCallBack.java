@@ -4,11 +4,13 @@ import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
 import com.example.testtracker.main_app.home.allcategories.model.Category;
 import com.example.testtracker.main_app.home.allcountries.model.Country;
 import com.example.testtracker.main_app.home.dailymeal.model.Meal;
+import com.example.testtracker.main_app.mealdetails.view.AllIngrediants;
 
 import java.util.List;
 
  public interface NetworkCallBack {
      default void onSuccess(List<Meal> products){}
+     default void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients){}
      default void onCategoriesSuccess(List<Category> categories){}
 
      default void onCountrySuccess(List<Country> countries){}
