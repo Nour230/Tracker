@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.db.MealDAO;
 import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
@@ -44,6 +45,15 @@ public class MealDetailsAdapter extends RecyclerView.Adapter<MealDetailsAdapter.
         AllIngrediants.Ingrediants meal = ingrediantList.get(position);
         holder.ingredients.setText(meal.getStrIngredient());
         holder.measure.setText(meal.getIdIngredient());
+        // Construct image URL for ingredient
+        String imageUrl = "https://www.themealdb.com/images/ingredients/" + meal.getStrIngredient() + "-Small.png";
+
+        // Load image using Glide
+        Glide.with(context)
+                .load(imageUrl)
+                .placeholder(R.drawable.food) // Add a placeholder image in case of loading delay
+                .error(R.drawable.food) // Add an error image in case the URL fails
+                .into(holder.image);
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +37,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView{
     LinearLayoutManager linearLayoutManager;
     TextView name, country, category, instructions;
     ImageView mealImage;
+    WebView vedio;
 
     public MealDetailsFragment() {
         // Required empty public constructor
@@ -63,6 +67,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView{
         instructions = view.findViewById(R.id.instructions);
         mealImage = view.findViewById(R.id.IMmealdetais);
         recyclerView = view.findViewById(R.id.ingrediantrec);
+        vedio = view.findViewById(R.id.vedio);
 
         // Set up RecyclerView
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -78,38 +83,52 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView{
         if (mealDetails != null) {
             displayMealDetails(mealDetails);
         }
-    }
+        if (mealDetails != null && mealDetails.getStrYoutube() != null) {
+            loadVideo(mealDetails.getStrYoutube());
+        }
 
+    }
+    private void loadVideo(String videoUrl) {
+        // Extract YouTube video ID
+        String videoId = videoUrl.substring(videoUrl.lastIndexOf("=") + 1);
+        String embedUrl = "https://www.youtube.com/embed/" + videoId;
+
+        // Enable JavaScript
+        WebSettings webSettings = vedio.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        // Load URL inside WebView
+        vedio.setWebViewClient(new WebViewClient());
+        vedio.loadUrl(embedUrl);
+    }
     private void displayMealDetails(MealDetails.MealsDTO mealDetails) {
-        // Set text for general meal details
+
         name.setText(mealDetails.getStrMeal());
         country.setText(mealDetails.getStrArea());
         category.setText(mealDetails.getStrCategory());
         instructions.setText(mealDetails.getStrInstructions());
-        // Set image using Glide or Picasso
-        // Example using Glide:
+
          Glide.with(this).load(mealDetails.getStrMealThumb()).into(mealImage);
 
-        // Extract ingredients and measurements
+
         List<AllIngrediants.Ingrediants> ingredientsList = new ArrayList<>();
 
-        for (int i = 1; i <= 20; i++) { // Assume there are 20 possible ingredient slots
+        for (int i = 1; i <= 20; i++) {
             String ingredient = getFieldValue(mealDetails, "getStrIngredient" + i);
             String measure = getFieldValue(mealDetails, "getStrMeasure" + i);
             if (ingredient != null && !ingredient.isEmpty()) {
                 AllIngrediants.Ingrediants ingredientObj = new AllIngrediants.Ingrediants();
                 ingredientObj.setStrIngredient(ingredient);
-                ingredientObj.setIdIngredient(measure); // Assuming this is the correct field for measure
+                ingredientObj.setIdIngredient(measure);
                 ingredientsList.add(ingredientObj);
             }
         }
 
-        // Update RecyclerView with the ingredients
+
         adapter.updateData(ingredientsList);
     }
 
 
-    // Helper method to get field values using reflection
     private String getFieldValue(MealDetails.MealsDTO mealDetails, String methodName) {
         try {
             Method method = mealDetails.getClass().getMethod(methodName);
