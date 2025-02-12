@@ -96,7 +96,7 @@
         android:layout_marginTop="128dp"
         android:fontFamily="@font/dancing_script_bold"
         android:text="@string/welcom_back"
-        android:textColor="@color/edittext"
+        android:textColor="@color/white"
         android:textSize="34dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

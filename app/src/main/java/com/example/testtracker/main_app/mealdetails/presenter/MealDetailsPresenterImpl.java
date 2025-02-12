@@ -20,13 +20,6 @@ private final MealDetailsRepositoryImpl repo;
         this.repo = repo;
     }
 
-
-
-//    @Override
-//    public void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
-//       view.showMealDetails();
-//    }
-
     @Override
     public void onMealSussecc(List<MealDetails.MealsDTO> meals) {
         if (meals != null && !meals.isEmpty()) {

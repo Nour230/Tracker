@@ -40,7 +40,11 @@ public class CategoryMealsAdapter extends RecyclerView.Adapter<CategoryMealsAdap
         CategoryMeals categoryMeals = categoryMealsList.get(position);
         holder.name.setText(categoryMeals.getStrMeal());
         Glide.with(context).load(categoryMeals.getStrMealThumb()).into(holder.image);
-        holder.itemView.setOnClickListener(v -> listener.onMealClick(categoryMeals));
+        holder.itemView.setOnClickListener(v -> {
+            if (categoryMeals != null && listener != null) {
+                listener.onMealClick(categoryMeals.getIdMeal(), v); // Ensure getIdMeal() returns the correct ID
+            }
+        });
     }
 
     @Override

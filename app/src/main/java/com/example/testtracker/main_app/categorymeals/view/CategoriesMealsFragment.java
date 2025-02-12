@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,20 +17,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.testtracker.R;
+import com.example.testtracker.db.MealLocalDataSourceImpl;
 import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
 import com.example.testtracker.main_app.categorymeals.model.CategoryMealsReposetoryImpl;
 import com.example.testtracker.main_app.categorymeals.presenter.CategoryMealsPresenterImpl;
+import com.example.testtracker.main_app.home.dailymeal.model.MealRepositoryImpl;
+import com.example.testtracker.main_app.home.dailymeal.presenter.DailyMealPresenterImpl;
+import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
+import com.example.testtracker.main_app.home.view.HomeFragmentDirections;
+import com.example.testtracker.main_app.mealdetails.model.MealDetails;
 import com.example.testtracker.network.Repo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesMealsFragment extends Fragment implements CategoryMealsView, OnMealClickListener {
+public class CategoriesMealsFragment extends Fragment implements CategoryMealsView, OnMealClickListener , DailyMealView {
     CategoryMealsAdapter adapter;
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
     CategoryMealsPresenterImpl presenter;
     TextView name;
+    DailyMealPresenterImpl mealpresenter;
     private static final String TAG = "MainActivity";
 
 
@@ -74,14 +82,15 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         } else {
             presenter.getMealsByCategory(categoryOrCountryName);
         }
-
+        mealpresenter = new DailyMealPresenterImpl(this,
+                MealRepositoryImpl.getInstance(
+                        MealLocalDataSourceImpl.getInstance(getContext()),
+                        Repo.getInstance()));
+        mealpresenter.getProducts();
 
     }
 
-    @Override
-    public void onMealClick(CategoryMeals meal) {
 
-    }
 
     @Override
     public void showCatData(List<CategoryMeals> products) {
@@ -94,5 +103,21 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         builder.setMessage(message);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
+        Log.i(TAG, "showMealDetails: "+mealDetails.getStrIngredient4());
+        CategoriesMealsFragmentDirections.ActionCategoriesMealsFragmentToMealDetailsFragment action =
+                CategoriesMealsFragmentDirections.actionCategoriesMealsFragmentToMealDetailsFragment(mealDetails);
+        Navigation.findNavController(requireView()).navigate(action);
+    }
+
+    @Override
+    public void onMealClick(String mealId, View view) {
+        Log.i(TAG, "onMealClick: "+mealId);
+        if (mealpresenter != null) {
+            mealpresenter.fetchMealDetails(mealId);
+        }
     }
 }
