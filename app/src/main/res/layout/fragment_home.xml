@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".main_app.home.view.HomeFragment">
+
+    <!-- ScrollView for scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BTN_NAV_View"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        tools:ignore="NotSibling"> <!-- Place above the BottomNavigationView -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/home_background">
+
+            <TextView
+                android:id="@+id/dayinspire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="@string/daily_inspiration"
+                android:textColor="@color/home_card_color"
+                android:textSize="33sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dayrec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dayinspire"
+                tools:listitem="@layout/day_meal_card" />
+
+            <TextView
+                android:id="@+id/categories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="@string/all_categories"
+                android:textSize="33sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dayrec" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/catrec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categories" />
+
+            <TextView
+                android:id="@+id/countries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="@string/all_countries"
+                android:textSize="33sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/catrec" />
+
+            <GridView
+                android:id="@+id/countryrec"
+                android:layout_width="match_parent"
+                android:layout_height="1590dp"
+                android:layout_marginTop="8dp"
+                android:isScrollContainer="true"
+                android:numColumns="2"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/countries"
+                tools:listitem="@layout/country_card"
+                tools:ignore="NestedScrolling" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:backgroundTint="@color/home_background"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/BTN_NAV_View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_nav_background"
+            app:menu="@menu/menu_items" />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    tools:context=".ui.auth.RegisterFragment">
+
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text_background"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress"
+        android:fontFamily="@font/dancing_script_bold"
+        android:paddingLeft="20dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TILconfirmpass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        app:hintEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPass"
+        android:textColorHint="@color/white"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="273dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:inputType="textPassword"
+            android:fontFamily="@font/dancing_script_bold"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
+        app:hintEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPass"
+            android:layout_width="273dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:inputType="textPassword"
+            android:fontFamily="@font/dancing_script_bold"
+            android:textColorHint="@color/white"
+            android:paddingLeft="20dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/edittext"
+        android:text="@string/sign_up"
+        android:fontFamily="@font/dancing_script_bold"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TILconfirmpass" />
+
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text_background"
+        android:paddingLeft="50dp"
+        android:paddingTop="10dp"
+        android:text="@string/loginLink"
+        android:fontFamily="@font/dancing_script_bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/googleLogin" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="128dp"
+        android:text="@string/welcom_to_our_app"
+        android:fontFamily="@font/dancing_script_bold"
+        android:textColor="@color/white"
+        android:textSize="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/googleLogin"
+        android:layout_width="89dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/image_button_background"
+        android:src="@drawable/google"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gustRegister"
+        android:layout_width="89dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="101dp"
+        android:backgroundTint="@color/edittext"
+        android:text="@string/skip"
+        android:fontFamily="@font/dancing_script_bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

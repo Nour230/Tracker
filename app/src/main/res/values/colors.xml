@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="wavecolor">#562C0F</color>
+    <color name="edittext">#632626</color>
+    <color name="home_background">#593232</color>
+    <color name="home_card_color">#F8EAD8</color>
 </resources>

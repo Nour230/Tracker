@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:id="@+id/daymeal"
+    android:backgroundTint="@color/home_background"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:background="@drawable/day_card_background"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+
+        <ImageView
+            android:id="@+id/mealImage"
+            android:layout_width="143dp"
+            android:layout_height="137dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/mealName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="34dp"
+            android:fontFamily="@font/dancing_script_bold"
+            android:text="TextView"
+            android:textColor="@color/home_background"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/mealImage"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/mealCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/dancing_script_bold"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/home_background"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/mealImage"
+            app:layout_constraintTop_toBottomOf="@+id/mealName" />
+
+        <TextView
+            android:id="@+id/mealArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/home_background"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/dancing_script_bold"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/mealImage"
+            app:layout_constraintTop_toBottomOf="@+id/mealCat" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addtofav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/edittext"
+            android:fontFamily="@font/dancing_script_bold"
+            android:text="Add To Fav"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mealArea" />
+
+        <ImageView
+            android:id="@+id/attToPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plan" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

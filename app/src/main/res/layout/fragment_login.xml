@@ -1,14 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
     tools:context=".ui.auth.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/edit_text_background"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/dancing_script_bold"
+        android:hint="@string/Email"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
+        app:hintEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPass"
+            android:layout_width="273dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:fontFamily="@font/dancing_script_bold"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="43dp"
+        android:backgroundTint="@color/edittext"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:fontFamily="@font/dancing_script_bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPass" />
+
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="273dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/edit_text_background"
+        android:fontFamily="@font/dancing_script_bold"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/signupLink"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/googleLogin" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="128dp"
+        android:fontFamily="@font/dancing_script_bold"
+        android:text="@string/welcom_back"
+        android:textColor="@color/white"
+        android:textSize="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/googleLogin"
+        android:layout_width="89dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/image_button_background"
+        android:src="@drawable/google"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gustLogin"
+        android:layout_width="89dp"
+        android:layout_height="59dp"
+        android:fontFamily="@font/dancing_script_bold"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="101dp"
+        android:backgroundTint="@color/edittext"
+        android:text="@string/skip"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

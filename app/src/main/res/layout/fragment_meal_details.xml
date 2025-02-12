@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_background"
+    tools:context=".main_app.mealdetails.view.MealDetailsFragment">
+
+
+    <ImageView
+        android:id="@+id/IMmealdetais"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="640dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IMmealdetais">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frameLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bottom_nav_background">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginEnd="64dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/country"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/dancing_script_bold"
+                            android:textColor="@color/home_background"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/caregory"
+                            tools:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/mealName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/dancing_script_bold"
+                            android:textColor="@color/home_background"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/caregory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/dancing_script_bold"
+                            android:textColor="@color/home_background"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/mealName"
+                            tools:text="TextView" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ingrediantrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="@color/home_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                <TextView
+                    android:id="@+id/instructions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/dancing_script_bold"
+                    android:textColor="@color/home_background"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ingrediantrec"
+                    tools:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+
+                <WebView
+                    android:id="@+id/vedio"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="64dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/instructions" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginBottom="64dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vedio" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addtofav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:backgroundTint="@color/edittext"
+                    android:fontFamily="@font/dancing_script_bold"
+                    android:text="@string/add_to_fav"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vedio" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
