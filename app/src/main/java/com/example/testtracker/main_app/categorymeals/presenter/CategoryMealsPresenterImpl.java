@@ -2,9 +2,9 @@ package com.example.testtracker.main_app.categorymeals.presenter;
 
 import android.util.Log;
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
-import com.example.testtracker.main_app.categorymeals.model.CategoryMealsReposetoryImpl;
-import com.example.testtracker.main_app.categorymeals.view.CategoryMealsView;
+import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
+import com.example.testtracker.models.catandcountrymeals.CategoryMealsReposetoryImpl;
+import com.example.testtracker.view.interfaces.CategoryMealsView;
 import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;

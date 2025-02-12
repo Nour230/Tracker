@@ -1,11 +1,11 @@
 package com.example.testtracker.network;
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
-import com.example.testtracker.main_app.home.allcategories.model.Category;
-import com.example.testtracker.main_app.home.allcountries.model.Country;
-import com.example.testtracker.main_app.home.dailymeal.model.Meal;
-import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
-import com.example.testtracker.main_app.mealdetails.model.MealDetails;
+import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
+import com.example.testtracker.models.allcategory.Category;
+import com.example.testtracker.models.allcountries.Country;
+import com.example.testtracker.models.dailymeal.Meal;
+import com.example.testtracker.models.mealdetails.AllIngrediants;
+import com.example.testtracker.models.mealdetails.MealDetails;
 
 import java.util.List;
 

@@ -7,9 +7,9 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
-import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
-import com.example.testtracker.main_app.mealdetails.model.MealDetails;
+import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
+import com.example.testtracker.models.mealdetails.AllIngrediants;
+import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.network.Repo;
 

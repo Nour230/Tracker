@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_app.fav.view.FavFragment" >
+    tools:context=".view.fav.FavFragment" >
 
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"

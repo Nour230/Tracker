@@ -1,8 +1,8 @@
 package com.example.testtracker.main_app.home.allcategories.presenter;
 
-import com.example.testtracker.main_app.home.allcategories.model.CategoriesRepositoryImpl;
-import com.example.testtracker.main_app.home.allcategories.model.Category;
-import com.example.testtracker.main_app.home.allcategories.view.CategoriesView;
+import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
+import com.example.testtracker.models.allcategory.Category;
+import com.example.testtracker.view.interfaces.CategoriesView;
 import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;

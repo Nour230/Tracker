@@ -1,8 +1,8 @@
 package com.example.testtracker.main_app.home.allcountries.presenter;
 
-import com.example.testtracker.main_app.home.allcountries.model.Country;
-import com.example.testtracker.main_app.home.allcountries.model.CountryRepositoryImpl;
-import com.example.testtracker.main_app.home.allcountries.view.CountriesView;
+import com.example.testtracker.models.allcountries.Country;
+import com.example.testtracker.models.allcountries.CountryRepositoryImpl;
+import com.example.testtracker.view.interfaces.CountriesView;
 import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;

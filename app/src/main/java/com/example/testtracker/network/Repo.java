@@ -2,12 +2,12 @@ package com.example.testtracker.network;
 
 import android.util.Log;
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
-import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
-import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
-import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
-import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
-import com.example.testtracker.main_app.mealdetails.model.MealDetails;
+import com.example.testtracker.models.catandcountrymeals.CategoryAllMeals;
+import com.example.testtracker.models.allcategory.AllCategories;
+import com.example.testtracker.models.allcountries.AllCounties;
+import com.example.testtracker.models.dailymeal.AllMeals;
+import com.example.testtracker.models.mealdetails.AllIngrediants;
+import com.example.testtracker.models.mealdetails.MealDetails;
 
 import retrofit2.Call;
 import retrofit2.Callback;

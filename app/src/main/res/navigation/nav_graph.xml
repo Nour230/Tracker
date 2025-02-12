@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.testtracker.ui.splash.SplashFragment"
+        android:name="com.example.testtracker.view.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.testtracker.ui.auth.LoginFragment"
+        android:name="com.example.testtracker.view.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.testtracker.ui.auth.RegisterFragment"
+        android:name="com.example.testtracker.view.auth.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.testtracker.main_app.home.view.HomeFragment"
+        android:name="com.example.testtracker.view.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoriesMealsFragment"
-        android:name="com.example.testtracker.main_app.categorymeals.view.CategoriesMealsFragment"
+        android:name="com.example.testtracker.view.catandcountrymeals.CategoriesMealsFragment"
         android:label="fragment_categories_meals"
         tools:layout="@layout/fragment_categories_meals" >
         <argument
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.example.testtracker.main_app.fav.view.FavFragment"
+        android:name="com.example.testtracker.view.fav.FavFragment"
         android:label="fragment_fav"
         tools:layout="@layout/fragment_fav" >
         <action
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
-        android:name="com.example.testtracker.main_app.mealdetails.view.MealDetailsFragment"
+        android:name="com.example.testtracker.view.mealdetails.MealDetailsFragment"
         android:label="fragment_meal_details"
         tools:layout="@layout/fragment_meal_details" >
         <action
@@ -99,7 +99,7 @@
             app:destination="@id/homeFragment" />
         <argument
             android:name="meal"
-            app:argType="com.example.testtracker.main_app.mealdetails.model.MealDetails$MealsDTO"
+            app:argType="com.example.testtracker.models.mealdetails.MealDetails$MealsDTO"
             app:nullable="true" />
     </fragment>
 </navigation>

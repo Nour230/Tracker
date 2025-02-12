@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_app.search.view.SearchFragment">
+    tools:context=".view.search.SearchFragment">
 
     <SearchView
         android:layout_width="match_parent"
