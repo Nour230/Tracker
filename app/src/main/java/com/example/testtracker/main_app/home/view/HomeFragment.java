@@ -144,13 +144,6 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         dialog.show();
     }
 
-    @Override
-    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
-        Log.i(TAG, "showMealDetails: "+mealDetails.getStrIngredient4());
-        HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action =
-                HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealDetails);
-        Navigation.findNavController(requireView()).navigate(action);
-    }
 
     @Override
     public void onCategoryClick(String category, View view) {
@@ -175,5 +168,13 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         if (mealpresenter != null) {
             mealpresenter.fetchMealDetails(mealId);
         }
+    }
+
+    @Override
+    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
+        Log.i(TAG, "showMealDetails: "+mealDetails.getStrIngredient4());
+        HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action =
+                HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealDetails);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 }
