@@ -20,15 +20,15 @@ public interface AllNetWorkService {
 
      @GET("list.php?a=list")
      Call<AllCounties> getAllCountries();
-
+    @GET("list.php?i=list")
+    Call<AllIngrediants> getAllIngredients();
      @GET("filter.php")
      Call<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
 
      @GET("filter.php")
     Call<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
 
-     @GET("list.php?i=list")
-     Call<AllIngrediants> getAllIngredients();
+
      @GET("lookup.php")
      Call<MealDetails> getMealDetails(@Query("i") String id);
 }

@@ -61,4 +61,10 @@ dependencies {
     implementation (libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 
+
+    //RXjava
+    implementation libs.rxjava
+    implementation libs.rxandroid
+    implementation libs.adapter.rxjava3
+
 }
