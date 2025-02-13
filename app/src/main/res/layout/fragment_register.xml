@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginbackground"
-    tools:context=".ui.auth.RegisterFragment">
+    tools:context=".view.auth.RegisterFragment">
 
 
     <EditText
@@ -41,17 +41,18 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmpass"
             android:layout_width="273dp"
             android:layout_height="59dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/edit_text_background"
             android:ems="10"
+            android:fontFamily="@font/dancing_script_bold"
             android:hint="@string/pass"
             android:inputType="textPassword"
-            android:fontFamily="@font/dancing_script_bold"
             android:paddingLeft="20dp"
-            android:textColorHint="@color/white"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +114,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/googleLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/googleregister" />
 
     <TextView
         android:id="@+id/textView2"
@@ -129,7 +130,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/googleLogin"
+        android:id="@+id/googleregister"
         android:layout_width="89dp"
         android:layout_height="59dp"
         android:layout_marginStart="85dp"

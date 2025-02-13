@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.testtracker.main_app.home.dailymeal.model.Meal;
+import com.example.testtracker.models.dailymeal.Meal;
 
 @Database(entities = {Meal.class}, version = 1)
 

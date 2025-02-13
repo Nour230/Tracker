@@ -18,11 +18,15 @@ navigationFragment = "2.8.6"
 navigationSafeArgsGradlePlugin = "2.8.6"
 navigationUi = "2.8.6"
 playServicesAuth = "21.3.0"
+playServicesAuthVersion = "20.4.0"
 retrofit = "2.9.0"
 roomCompiler = "2.6.1"
 roomRuntime = "2.6.1"
+rxandroid = "3.0.2"
+rxjava = "3.1.8"
 
 [libraries]
+adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "converterGson" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-v2320 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
@@ -42,9 +46,12 @@ navigation-fragment = { module = "androidx.navigation:navigation-fragment", vers
 navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
 navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUi" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-auth-v2040 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

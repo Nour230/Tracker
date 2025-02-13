@@ -5,7 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".main_app.home.view.HomeFragment">
+    tools:context=".view.home.HomeFragment">
 
     <!-- ScrollView for scrollable content -->
     <ScrollView
@@ -94,20 +94,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bottom_nav_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:elevation="10dp"
-        android:backgroundTint="@color/home_background"
-        app:cardBackgroundColor="@android:color/transparent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/BTN_NAV_View"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bottom_nav_background"
-            app:menu="@menu/menu_items" />
-    </androidx.cardview.widget.CardView>
 </RelativeLayout>
