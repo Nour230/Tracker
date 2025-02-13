@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.testtracker.main_app.home.dailymeal.model.Meal;
+import com.example.testtracker.models.dailymeal.Meal;
 
 import java.util.List;
 

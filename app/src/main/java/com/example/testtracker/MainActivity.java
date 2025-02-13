@@ -4,64 +4,57 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryMeals;
-import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
-import com.example.testtracker.main_app.mealdetails.model.MealDetails;
-import com.example.testtracker.network.NetworkCallBack;
-import com.example.testtracker.network.Repo;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NetworkCallBack {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private Repo repo;
+
+    private BottomNavigationView bottomNavigationView;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
         setContentView(R.layout.activity_main);
-        repo = Repo.getInstance();
-        repo.makeNetworkCall(this);
-        //repo.getMealsByCategory("Canadian",this);
-        repo.getMealsByCountry("Canadian", this);
-        repo.getMealDetails("52959", this);
+        bottomNavigationView = findViewById(R.id.BTN_NAV_View);
 
+        // Find the NavHostFragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.fragmentContainerView);
 
-    }
+        // Get the NavController from the NavHostFragment
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
 
+            // Set up BottomNavigationView with NavController
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
 
-    @Override
-    public void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
-        Log.i(TAG, "onIngrediantSuccess: " + ingredients.get(0).getStrIngredient());
-    }
-
-    @Override
-    public void onCountryMealsSuccess(List<CategoryMeals> categories) {
-        if (categories != null) {
-            Log.i(TAG, "onCategoryMealsSuccess: CallBack" + categories.get(0).getStrMeal());
+                @Override
+                public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                    if (navDestination.getId() == R.id.homeFragment ||
+                            navDestination.getId() == R.id.searchFragment ||
+                            navDestination.getId() == R.id.planFragment ||
+                            navDestination.getId() == R.id.favFragment) {
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+                    } else {
+                        bottomNavigationView.setVisibility(View.GONE);
+                    }
+                }
+            });
         } else {
-            Log.e(TAG, "onSuccess: onCategoryMealsSuccess list is null");
+            Log.e(TAG, "NavHostFragment is null. Check your layout and navigation setup.");
+
+
         }
-    }
-
-    @Override
-    public void onMealSussecc(List<MealDetails.MealsDTO> meals) {
-        Log.i(TAG, "onMealSussecc: "+meals.get(0).getStrMeal());
-    }
-
-    @Override
-    public void onFailure(String message) {
-        Log.i(TAG, "onFailure: CallBack" + message);
-
     }
 }

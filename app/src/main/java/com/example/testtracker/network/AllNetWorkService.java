@@ -1,12 +1,12 @@
 package com.example.testtracker.network;
 
 
-import com.example.testtracker.main_app.categorymeals.model.CategoryAllMeals;
-import com.example.testtracker.main_app.home.allcategories.model.AllCategories;
-import com.example.testtracker.main_app.home.allcountries.model.AllCounties;
-import com.example.testtracker.main_app.home.dailymeal.model.AllMeals;
-import com.example.testtracker.main_app.mealdetails.model.AllIngrediants;
-import com.example.testtracker.main_app.mealdetails.model.MealDetails;
+import com.example.testtracker.models.catandcountrymeals.CategoryAllMeals;
+import com.example.testtracker.models.allcategory.AllCategories;
+import com.example.testtracker.models.allcountries.AllCounties;
+import com.example.testtracker.models.dailymeal.AllMeals;
+import com.example.testtracker.models.mealdetails.AllIngrediants;
+import com.example.testtracker.models.mealdetails.MealDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,15 +20,15 @@ public interface AllNetWorkService {
 
      @GET("list.php?a=list")
      Call<AllCounties> getAllCountries();
-
+    @GET("list.php?i=list")
+    Call<AllIngrediants> getAllIngredients();
      @GET("filter.php")
      Call<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
 
      @GET("filter.php")
     Call<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
 
-     @GET("list.php?i=list")
-     Call<AllIngrediants> getAllIngredients();
+
      @GET("lookup.php")
      Call<MealDetails> getMealDetails(@Query("i") String id);
 }

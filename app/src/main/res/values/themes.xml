@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.TestTracker" parent="Base.Theme.TestTracker" />
+    <style name="Theme.TestTracker" parent="Base.Theme.TestTracker" >
+        <item name="colorPrimary" >
+            @color/home_card_color
+        </item>
+    </style>
 </resources>

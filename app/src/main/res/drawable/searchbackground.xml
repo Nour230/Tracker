@@ -1,0 +1,13 @@
+<!-- res/drawable/searchview_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Set the background color (optional) -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- Set the border color and width -->
+    <stroke
+        android:width="5dp"
+        android:color="@color/home_background" /> <!-- Replace with your desired border color -->
+
+    <!-- Set rounded corners (optional) -->
+    <corners android:radius="8dp" />
+</shape>
