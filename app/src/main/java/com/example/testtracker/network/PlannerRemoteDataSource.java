@@ -15,22 +15,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Repo implements RemoteDataSource {
+public class PlannerRemoteDataSource implements RemoteDataSource {
     private static final String TAG = "productClient";
     private static final String Base_url = "https://www.themealdb.com/api/json/v1/1/";
     private final AllNetWorkService mealservice;
 
-    private static Repo client = null;
+    private static PlannerRemoteDataSource client = null;
 
-    private Repo(){
+    private PlannerRemoteDataSource(){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Base_url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mealservice = retrofit.create(AllNetWorkService.class);
 }
-    public static Repo getInstance() {
+    public static PlannerRemoteDataSource getInstance() {
         if (client == null) {
-            client = new Repo();
+            client = new PlannerRemoteDataSource();
         }
         return client;}
     public void makeNetworkCall(NetworkCallBack networkCallBack){

@@ -1,4 +1,4 @@
-package com.example.testtracker.main_app.home.allcategories.presenter;
+package com.example.testtracker.presenter.intefaces;
 
 public interface CategoriesPresenter {
     public void getCategories();

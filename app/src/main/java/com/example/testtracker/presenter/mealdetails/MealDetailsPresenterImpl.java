@@ -1,9 +1,10 @@
-package com.example.testtracker.main_app.mealdetails.presenter;
+package com.example.testtracker.presenter.mealdetails;
 
 import android.util.Log;
 
 import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.models.mealdetails.MealDetailsRepositoryImpl;
+import com.example.testtracker.presenter.intefaces.MealDetailsPresenter;
 import com.example.testtracker.view.interfaces.MealDetailsView;
 import com.example.testtracker.network.NetworkCallBack;
 

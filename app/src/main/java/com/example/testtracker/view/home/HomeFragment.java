@@ -19,25 +19,25 @@ import android.widget.GridView;
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
 import com.example.testtracker.models.allcategory.Category;
-import com.example.testtracker.main_app.home.allcategories.presenter.CategoriesPresenterImpl;
+import com.example.testtracker.presenter.home.CategoriesPresenterImpl;
 import com.example.testtracker.view.adapter.CategoriesAdapter;
 import com.example.testtracker.view.interfaces.CategoriesView;
 import com.example.testtracker.view.interfaces.OnCaregoryClickListener;
 import com.example.testtracker.models.allcountries.Country;
 import com.example.testtracker.models.allcountries.CountryRepositoryImpl;
-import com.example.testtracker.main_app.home.allcountries.presenter.CountriesPresenterImpl;
+import com.example.testtracker.presenter.home.CountriesPresenterImpl;
 import com.example.testtracker.view.interfaces.CountriesView;
 import com.example.testtracker.view.interfaces.OnContryClickListener;
 import com.example.testtracker.view.adapter.countriesAdapter;
-import com.example.testtracker.main_app.home.dailymeal.presenter.DailyMealPresenterImpl;
+import com.example.testtracker.presenter.home.DailyMealPresenterImpl;
 import com.example.testtracker.db.MealLocalDataSourceImpl;
 import com.example.testtracker.models.dailymeal.Meal;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.view.adapter.DailyAdaoter;
-import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
-import com.example.testtracker.main_app.home.dailymeal.view.OnMealClickListener;
+import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.mealdetails.MealDetails;
-import com.example.testtracker.network.Repo;
+import com.example.testtracker.network.PlannerRemoteDataSource;
+import com.example.testtracker.view.interfaces.OnMealClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,15 +106,15 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         mealpresenter = new DailyMealPresenterImpl(this,
                  MealRepositoryImpl.getInstance(
                         MealLocalDataSourceImpl.getInstance(getContext()),
-                        Repo.getInstance()));
+                        PlannerRemoteDataSource.getInstance()));
         mealpresenter.getProducts();
         catpresenter = new CategoriesPresenterImpl(this,
                 CategoriesRepositoryImpl.getInstance(
-                        Repo.getInstance()));
+                        PlannerRemoteDataSource.getInstance()));
         catpresenter.getCategories();
         countrypresenter = new CountriesPresenterImpl(this,
                 CountryRepositoryImpl.getInstance(
-                        Repo.getInstance()));
+                        PlannerRemoteDataSource.getInstance()));
         countrypresenter.getCountries();
 
     }

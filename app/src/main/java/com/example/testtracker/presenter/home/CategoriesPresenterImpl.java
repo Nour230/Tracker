@@ -1,7 +1,8 @@
-package com.example.testtracker.main_app.home.allcategories.presenter;
+package com.example.testtracker.presenter.home;
 
 import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
 import com.example.testtracker.models.allcategory.Category;
+import com.example.testtracker.presenter.intefaces.CategoriesPresenter;
 import com.example.testtracker.view.interfaces.CategoriesView;
 import com.example.testtracker.network.NetworkCallBack;
 

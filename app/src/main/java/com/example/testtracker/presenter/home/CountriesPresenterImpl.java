@@ -1,13 +1,14 @@
-package com.example.testtracker.main_app.home.allcountries.presenter;
+package com.example.testtracker.presenter.home;
 
 import com.example.testtracker.models.allcountries.Country;
 import com.example.testtracker.models.allcountries.CountryRepositoryImpl;
+import com.example.testtracker.presenter.intefaces.CountriesPresenter;
 import com.example.testtracker.view.interfaces.CountriesView;
 import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;
 
-public class CountriesPresenterImpl implements NetworkCallBack, CountriesPresenter{
+public class CountriesPresenterImpl implements NetworkCallBack, CountriesPresenter {
 
     private final CountriesView view;
     private final CountryRepositoryImpl repo;

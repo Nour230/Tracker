@@ -1,4 +1,4 @@
-package com.example.testtracker.main_app.home.dailymeal.presenter;
+package com.example.testtracker.presenter.intefaces;
 
 import com.example.testtracker.models.dailymeal.Meal;
 

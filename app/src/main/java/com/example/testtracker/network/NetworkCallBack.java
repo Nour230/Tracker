@@ -10,8 +10,8 @@ import com.example.testtracker.models.mealdetails.MealDetails;
 import java.util.List;
 
 public interface NetworkCallBack {
-    default void onSuccess(List<Meal> products) {
-    }
+     default void onSuccess(List<Meal> products) {}
+    void onFailure(String message);
 
     default void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
     }
@@ -30,5 +30,5 @@ public interface NetworkCallBack {
 
     default void onMealSussecc(List<MealDetails.MealsDTO> meals){}
 
-    void onFailure(String message);
+
 }

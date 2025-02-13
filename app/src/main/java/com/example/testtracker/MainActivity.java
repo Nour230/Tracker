@@ -6,62 +6,59 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
-import com.example.testtracker.models.mealdetails.AllIngrediants;
-import com.example.testtracker.models.mealdetails.MealDetails;
-import com.example.testtracker.network.NetworkCallBack;
-import com.example.testtracker.network.Repo;
+import com.example.testtracker.databinding.ActivityMainBinding;
+import com.example.testtracker.view.fav.FavFragment;
+import com.example.testtracker.view.home.HomeFragment;
+import com.example.testtracker.view.plan.PlanFragment;
+import com.example.testtracker.view.search.SearchFragment;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NetworkCallBack {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private Repo repo;
+    static ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-        setContentView(R.layout.activity_main);
-        repo = Repo.getInstance();
-        repo.makeNetworkCall(this);
-        //repo.getMealsByCategory("Canadian",this);
-        repo.getMealsByCountry("Canadian", this);
-        repo.getMealDetails("52959", this);
 
+
+        // Initialize binding and set content view
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // Set up BottomNavigationView listener
+        binding.BTNNAVView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            Log.d(TAG, "Selected item ID: " + itemId);
+            if (itemId == R.id.home) {
+                replacefregment(new HomeFragment());
+            } else if (itemId == R.id.search) {
+                replacefregment(new SearchFragment());
+            } else if (itemId == R.id.fav) {
+                replacefregment(new FavFragment());
+            } else if (itemId == R.id.plan) {
+                replacefregment(new PlanFragment());
+            }
+            return true;
+        });
 
     }
 
-
-    @Override
-    public void onIngrediantSuccess(List<AllIngrediants.Ingrediants> ingredients) {
-        Log.i(TAG, "onIngrediantSuccess: " + ingredients.get(0).getStrIngredient());
-    }
-
-    @Override
-    public void onCountryMealsSuccess(List<CategoryMeals> categories) {
-        if (categories != null) {
-            Log.i(TAG, "onCategoryMealsSuccess: CallBack" + categories.get(0).getStrMeal());
+    private void replacefregment(Fragment fragment) {
+        if (fragment instanceof HomeFragment || fragment instanceof SearchFragment ||
+                fragment instanceof FavFragment || fragment instanceof PlanFragment) {
+            binding.BTNNAVView.setVisibility(View.VISIBLE);
         } else {
-            Log.e(TAG, "onSuccess: onCategoryMealsSuccess list is null");
+            binding.BTNNAVView.setVisibility(View.GONE);
         }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+        fragmentTransaction.commit();
     }
 
-    @Override
-    public void onMealSussecc(List<MealDetails.MealsDTO> meals) {
-        Log.i(TAG, "onMealSussecc: "+meals.get(0).getStrMeal());
-    }
 
-    @Override
-    public void onFailure(String message) {
-        Log.i(TAG, "onFailure: CallBack" + message);
-
-    }
 }

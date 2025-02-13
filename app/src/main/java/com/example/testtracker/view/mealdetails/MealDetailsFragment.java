@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.mealdetails.AllIngrediants;
 import com.example.testtracker.models.mealdetails.MealDetails;
-import com.example.testtracker.main_app.mealdetails.presenter.MealDetailsPresenterImpl;
+import com.example.testtracker.presenter.mealdetails.MealDetailsPresenterImpl;
 import com.example.testtracker.view.adapter.MealDetailsAdapter;
 import com.example.testtracker.view.interfaces.MealDetailsView;
 

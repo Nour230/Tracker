@@ -20,14 +20,14 @@ import com.example.testtracker.R;
 import com.example.testtracker.db.MealLocalDataSourceImpl;
 import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
 import com.example.testtracker.models.catandcountrymeals.CategoryMealsReposetoryImpl;
-import com.example.testtracker.main_app.categorymeals.presenter.CategoryMealsPresenterImpl;
+import com.example.testtracker.presenter.catandcountrymeals.CategoryMealsPresenterImpl;
 import com.example.testtracker.view.interfaces.CategoryMealsView;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
-import com.example.testtracker.main_app.home.dailymeal.presenter.DailyMealPresenterImpl;
-import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
+import com.example.testtracker.presenter.home.DailyMealPresenterImpl;
+import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.mealdetails.MealDetails;
-import com.example.testtracker.network.Repo;
+import com.example.testtracker.network.PlannerRemoteDataSource;
 import com.example.testtracker.view.adapter.CategoryMealsAdapter;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         adapter = new CategoryMealsAdapter(new ArrayList<>(),getContext(),this);
         recyclerView.setAdapter(adapter);
         presenter = new CategoryMealsPresenterImpl(this,
-                CategoryMealsReposetoryImpl.getInstance(Repo.getInstance()));
+                CategoryMealsReposetoryImpl.getInstance(PlannerRemoteDataSource.getInstance()));
         String categoryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
         Log.i(TAG, "onViewCreated: "+categoryName);
         String categoryOrCountryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
@@ -87,7 +87,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         mealpresenter = new DailyMealPresenterImpl(this,
                 MealRepositoryImpl.getInstance(
                         MealLocalDataSourceImpl.getInstance(getContext()),
-                        Repo.getInstance()));
+                        PlannerRemoteDataSource.getInstance()));
         mealpresenter.getProducts();
 
     }

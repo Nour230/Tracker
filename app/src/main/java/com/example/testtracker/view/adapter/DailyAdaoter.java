@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.dailymeal.Meal;
-import com.example.testtracker.main_app.home.dailymeal.view.OnMealClickListener;
+import com.example.testtracker.view.interfaces.OnMealClickListener;
 
 import java.util.List;
 

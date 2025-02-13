@@ -1,4 +1,4 @@
-package com.example.testtracker.main_app.categorymeals.presenter;
+package com.example.testtracker.presenter.intefaces;
 
 public interface CategoryMealsPresenter {
     public void getMealsByCategory(String category);

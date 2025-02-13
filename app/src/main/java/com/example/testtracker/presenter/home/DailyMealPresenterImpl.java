@@ -1,10 +1,11 @@
-package com.example.testtracker.main_app.home.dailymeal.presenter;
+package com.example.testtracker.presenter.home;
 
-import com.example.testtracker.main_app.home.dailymeal.view.DailyMealView;
+import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.dailymeal.Meal;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.network.NetworkCallBack;
+import com.example.testtracker.presenter.intefaces.DailyMealPresenter;
 
 import java.util.List;
 

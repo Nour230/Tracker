@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testtracker.R;
+import com.example.testtracker.presenter.auth.signup.RegisterPresenter;
+import com.example.testtracker.presenter.auth.signup.RegisterPresenterImpl;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,15 +32,18 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Objects;
 
-public class RegisterFragment extends Fragment {
+
+public class RegisterFragment extends Fragment implements RegisterView {
     MaterialButton signup;
-    EditText email, pass;
+    EditText email, pass,confirmpass;
     private static final String TAG = "MainActivity";
     private FirebaseAuth myauth;
     private GoogleSignInClient googleSignInClient;
     MaterialButton Skip;
     TextView login;
+    RegisterPresenter presenter;
     ImageButton google;
     public RegisterFragment() {
         // Required empty public constructor
@@ -64,10 +69,18 @@ public class RegisterFragment extends Fragment {
         Skip = view.findViewById(R.id.gustRegister);
         email = view.findViewById(R.id.edtEmail);
         pass = view.findViewById(R.id.edtPass);
+        confirmpass = view.findViewById(R.id.confirmpass);
+        google = view.findViewById(R.id.googleregister);
         login = view.findViewById(R.id.login);
+
+
         myauth = FirebaseAuth.getInstance();
-        google = view.findViewById(R.id.googleLogin);
-        googleSignInClient = GoogleSignIn.getClient(getActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+        presenter = new RegisterPresenterImpl(this);
         //logic////////////////////////////////////////////
         login.setOnClickListener(v->{
             Navigation.findNavController(view)
@@ -78,7 +91,10 @@ public class RegisterFragment extends Fragment {
                     .navigate(R.id.action_registerFragment_to_homeFragment);
         });
         signup.setOnClickListener(v->{
-            signUp(v);
+            signUp(email.getText().toString(),
+                    pass.getText().toString(),
+                    confirmpass.getText().toString()
+                    );
         });
         google.setOnClickListener(v->{
             signIn();
@@ -87,18 +103,13 @@ public class RegisterFragment extends Fragment {
     }
 
 
-    private void signUp(View view) {
-        myauth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                .addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_registerFragment_to_homeFragment);
-                Log.i(TAG, "signIn Success: ");
-            } else {
-                Log.i(TAG, "signIn Fail: "+task.getException().getMessage());
-            }
-
-        });
+    private void signUp(String email, String pass, String confirmpass) {
+        if(pass.equals(confirmpass)){
+           presenter.register(email,pass);
+        }
+        else {
+            //display error
+        }
     }
 
     private void signout() {
@@ -116,24 +127,29 @@ public class RegisterFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 123) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                signInWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                throw new RuntimeException(e);
-            }
+            presenter.handleGoogleSignInResult(data);
         }
     }
-
-    private void signInWithGoogle(String idToken) {
-        AuthCredential authCredential = GoogleAuthProvider.getCredential(idToken, null);
-        myauth.signInWithCredential(authCredential).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.i(TAG, "signInWithGoogle Success: ");
-            } else {
-                Log.i(TAG, "signInWithGoogle Fail: "+task.getException().getMessage());
-            }
-        });
+    @Override
+    public void registerSuccess() {
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_registerFragment_to_homeFragment);
     }
+
+    @Override
+    public void registerFailure(String errorMessage) {
+        Log.i(TAG, "registerFailure: "+errorMessage);
+    }
+    @Override
+    public void googleSignInSuccess() {
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_registerFragment_to_homeFragment);
+    }
+
+    @Override
+    public void googleSignInFailure(String errorMessage) {
+        Log.i(TAG, "registerFailure: "+errorMessage);
+    }
+
+
 }
