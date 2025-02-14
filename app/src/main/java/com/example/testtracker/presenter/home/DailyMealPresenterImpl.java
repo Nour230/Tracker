@@ -1,15 +1,20 @@
 package com.example.testtracker.presenter.home;
 
+import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.dailymeal.Meal;
-import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.models.mealdetails.MealDetails;
-import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.presenter.intefaces.DailyMealPresenter;
 
 import java.util.List;
 
-public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBack {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class DailyMealPresenterImpl implements DailyMealPresenter {
     private final DailyMealView view;
     private final MealRepositoryImpl repo;
 
@@ -20,10 +25,50 @@ public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBa
 
     @Override
     public void getProducts() {
-        repo.getAllMeals(this);
+        repo.getAllMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Meal>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        // Handle subscription if needed
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        view.showData(meals);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showError(e.getMessage());
+                    }
+
+                });
     }
+
     public void fetchMealDetails(String mealId) {
-        repo.getMealDetails(mealId, this);}
+        repo.getMealDetails(mealId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MealDetails.MealsDTO>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        // Handle subscription if needed
+                    }
+
+                    @Override
+                    public void onSuccess(MealDetails.@NonNull MealsDTO mealsDTO) {
+                        view.showMealDetails(mealsDTO);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showError(e.getMessage());
+                    }
+
+                });
+    }
 
     @Override
     public void addToFav(Meal meal) {
@@ -34,21 +79,5 @@ public class DailyMealPresenterImpl implements DailyMealPresenter, NetworkCallBa
     public void addToPlan(Meal meal) {
         repo.addMeal(meal);
     }
-
-    @Override
-    public void onSuccess(List<Meal> meal) {
-        view.showData(meal);
-    }
-
-    @Override
-    public void onMealSussecc(List<MealDetails.MealsDTO> meals) {
-        view.showMealDetails(meals.get(0));
-    }
-
-    @Override
-    public void onFailure(String message) {
-        view.showError(message);
-    }
-
 
 }

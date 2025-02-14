@@ -1,5 +1,7 @@
 package com.example.testtracker.view.splash;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.testtracker.R;
 
 public class SplashFragment extends Fragment {
+    SharedPreferences sharedPreferences;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -36,11 +39,19 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        boolean isLogged = sharedPreferences.getBoolean("isLogged", false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_splashFragment_to_loginFragment);
+                if(isLogged){
+                    Navigation.findNavController(view)
+                            .navigate(R.id.action_splashFragment_to_homeFragment);
+                }else {
+                    Navigation.findNavController(view)
+                            .navigate(R.id.action_splashFragment_to_loginFragment);
+                }
+
             }
         },3000);
     }

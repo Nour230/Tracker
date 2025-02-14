@@ -2,44 +2,42 @@ package com.example.testtracker.models.catandcountrymeals;
 
 import android.util.Log;
 
-import com.example.testtracker.network.NetworkCallBack;
+import com.example.testtracker.network.PlannerRemoteDataSource;
 import com.example.testtracker.network.RemoteDataSource;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
+
 public class CategoryMealsReposetoryImpl implements RemoteDataSource {
-    RemoteDataSource remoteDataSource;
+    PlannerRemoteDataSource remoteDataSource;
     private static final String TAG = "MainActivity";
 
     private static CategoryMealsReposetoryImpl repo = null;
-    private CategoryMealsReposetoryImpl(RemoteDataSource remoteDataSource) {
+    private CategoryMealsReposetoryImpl(PlannerRemoteDataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
 
-    public static CategoryMealsReposetoryImpl getInstance(RemoteDataSource remoteDataSource) {
+    public static CategoryMealsReposetoryImpl getInstance(PlannerRemoteDataSource remoteDataSource) {
         if (repo == null) {
             repo = new CategoryMealsReposetoryImpl(remoteDataSource);
         }
         return repo;}
 
-
-
-    public void getAllCategoriesMeals(String category,NetworkCallBack networkCallBack) {
+    public Single<List<CategoryMeals>> getAllCategoriesMeals(String category) {
         Log.i(TAG, "getAllCategoriesMeals: "+category);
-        remoteDataSource.getMealsByCategory(category,networkCallBack);
+        return remoteDataSource.getMealsByCategory(category)
+                .map(CategoryAllMeals::getMeals);
     }
 
-    public void getAllCountriesMeals(String country,NetworkCallBack networkCallBack) {
+    public Single<List<CategoryMeals>> getAllCountriesMeals(String country) {
         Log.i(TAG, "getAllCategoriesMeals: "+country);
-        remoteDataSource.getMealsByCountry(country,networkCallBack);
+        return remoteDataSource.getMealsByCountry(country)
+                .map(CategoryAllMeals::getMeals);
     }
-
-
-    @Override
-    public void getMealsByCategory(String category, NetworkCallBack networkCallBack) {
-        remoteDataSource.getMealsByCategory(category, networkCallBack);
-    }
-
-    @Override
-    public void getMealsByCountry(String country, NetworkCallBack networkCallBack) {
-        remoteDataSource.getMealsByCountry(country, networkCallBack);
+    public Single<List<CategoryMeals>> getAllIngrediantsMeals(String ingrediant) {
+        Log.i(TAG, "getAllCategoriesMeals: "+ingrediant);
+        return remoteDataSource.getMealsByIngrediant(ingrediant)
+                .map(CategoryAllMeals::getMeals);
     }
 }

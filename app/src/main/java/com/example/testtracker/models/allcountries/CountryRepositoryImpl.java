@@ -1,27 +1,26 @@
 package com.example.testtracker.models.allcountries;
 
-import com.example.testtracker.network.NetworkCallBack;
-import com.example.testtracker.network.RemoteDataSource;
+import com.example.testtracker.network.PlannerRemoteDataSource;
 
-public class CountryRepositoryImpl implements RemoteDataSource{
-    RemoteDataSource remoteDataSource;
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
+
+public class CountryRepositoryImpl{
+    PlannerRemoteDataSource remoteDataSource;
 private static CountryRepositoryImpl repo = null;
 
-    private CountryRepositoryImpl(RemoteDataSource remoteDataSource) {
+    private CountryRepositoryImpl(PlannerRemoteDataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
-    public static CountryRepositoryImpl getInstance(RemoteDataSource remoteDataSource) {
+    public static CountryRepositoryImpl getInstance(PlannerRemoteDataSource remoteDataSource) {
         if (repo == null) {
             repo = new CountryRepositoryImpl(remoteDataSource);
         }
         return repo;}
 
-
-    @Override
-    public void makeNetworkCall(NetworkCallBack networkCallBack) {
-        remoteDataSource.makeNetworkCall(networkCallBack);
-    }
-    public void getAllCountries(NetworkCallBack networkCallBack){
-        remoteDataSource.makeNetworkCall(networkCallBack);
+    public Single<List<Country>> getAllCountries(){
+        return remoteDataSource.getAllCountries()
+                .map(AllCounties::getCountries);
     }
 }

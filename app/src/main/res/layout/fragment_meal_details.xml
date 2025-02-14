@@ -22,8 +22,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="640dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IMmealdetais">
@@ -104,7 +105,7 @@
                     android:id="@+id/ingrediantrec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="44dp"
                     android:backgroundTint="@color/home_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -114,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="44dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/dancing_script_bold"
                     android:textColor="@color/home_background"
@@ -129,35 +130,26 @@
                     android:layout_width="0dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="64dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="44dp"
                     android:layout_marginEnd="64dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/instructions" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginBottom="64dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vedio" />
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addtofav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="44dp"
                     android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/edittext"
                     android:fontFamily="@font/dancing_script_bold"
-                    android:text="@string/add_to_fav"
                     android:paddingStart="30dp"
                     android:paddingEnd="20dp"
-                    android:textSize="20sp"
+                    android:text="@string/add_to_fav"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vedio" />
 

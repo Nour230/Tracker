@@ -1,8 +1,16 @@
 package com.example.testtracker.network;
 
+import com.example.testtracker.models.dailymeal.AllMeals;
+import com.example.testtracker.models.mealdetails.MealDetails;
+
+import io.reactivex.rxjava3.core.Single;
+
 public interface RemoteDataSource {
-    default void makeNetworkCall(NetworkCallBack networkCallBack){}
-    default void getMealsByCategory(String category, NetworkCallBack networkCallBack){}
-    default void getMealsByCountry(String country, NetworkCallBack networkCallBack){}
-     default void getMealDetails(String id,NetworkCallBack networkCallBack){}
+
+    default Single<AllMeals> getAllMeals(){
+        return null;
+    }
+    default Single<MealDetails> getMealDetails(String id){
+        return null;
+    }
 }

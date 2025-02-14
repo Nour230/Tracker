@@ -1,9 +1,8 @@
 package com.example.testtracker.models.mealdetails;
 
-import com.example.testtracker.network.NetworkCallBack;
 import com.example.testtracker.network.RemoteDataSource;
 
-public class MealDetailsRepositoryImpl implements RemoteDataSource {
+public class MealDetailsRepositoryImpl {
     RemoteDataSource remoteDataSource;
     private static MealDetailsRepositoryImpl repo = null;
     private MealDetailsRepositoryImpl(RemoteDataSource remoteDataSource){
@@ -14,11 +13,5 @@ public class MealDetailsRepositoryImpl implements RemoteDataSource {
             repo = new MealDetailsRepositoryImpl(remoteDataSource);
         }
         return repo;}
-    @Override
-    public void makeNetworkCall(NetworkCallBack networkCallBack) {
-        remoteDataSource.makeNetworkCall(networkCallBack);
-    }
-    public void getMealDetails(String id,NetworkCallBack networkCallBack){
-        remoteDataSource.getMealDetails(id,networkCallBack);
-    }
+
 }
