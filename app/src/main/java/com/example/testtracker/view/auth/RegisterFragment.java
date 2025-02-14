@@ -73,7 +73,6 @@ public class RegisterFragment extends Fragment implements RegisterView {
         google = view.findViewById(R.id.googleregister);
         login = view.findViewById(R.id.login);
 
-
         myauth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

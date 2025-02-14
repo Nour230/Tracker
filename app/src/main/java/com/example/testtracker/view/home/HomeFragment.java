@@ -22,12 +22,10 @@ import com.example.testtracker.models.allcategory.Category;
 import com.example.testtracker.presenter.home.CategoriesPresenterImpl;
 import com.example.testtracker.view.adapter.CategoriesAdapter;
 import com.example.testtracker.view.interfaces.CategoriesView;
-import com.example.testtracker.view.interfaces.OnCaregoryClickListener;
 import com.example.testtracker.models.allcountries.Country;
 import com.example.testtracker.models.allcountries.CountryRepositoryImpl;
 import com.example.testtracker.presenter.home.CountriesPresenterImpl;
 import com.example.testtracker.view.interfaces.CountriesView;
-import com.example.testtracker.view.interfaces.OnContryClickListener;
 import com.example.testtracker.view.adapter.countriesAdapter;
 import com.example.testtracker.presenter.home.DailyMealPresenterImpl;
 import com.example.testtracker.db.MealLocalDataSourceImpl;
@@ -44,7 +42,7 @@ import java.util.List;
 
 
 public class HomeFragment extends Fragment implements OnMealClickListener, CountriesView,
-        OnContryClickListener, DailyMealView, OnCaregoryClickListener, CategoriesView {
+         DailyMealView, CategoriesView {
 
     DailyAdaoter dailyadapter;
     CategoriesAdapter categoryadapter;

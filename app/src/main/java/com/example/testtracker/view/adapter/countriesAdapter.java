@@ -8,15 +8,15 @@ import android.widget.TextView;
 
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcountries.Country;
-import com.example.testtracker.view.interfaces.OnContryClickListener;
+import com.example.testtracker.view.interfaces.OnMealClickListener;
 
 import java.util.List;
 
 public class countriesAdapter extends BaseAdapter {
     private final List<Country>cuntryList;
     private final Context context;;
-    private final OnContryClickListener listener;
-    public countriesAdapter(List<Country> cuntryList, Context context, OnContryClickListener listener) {
+    private final OnMealClickListener listener;
+    public countriesAdapter(List<Country> cuntryList, Context context, OnMealClickListener listener) {
         this.listener = listener;
         this.cuntryList = cuntryList;
         this.context = context;

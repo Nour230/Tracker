@@ -1,40 +1,39 @@
 package com.example.testtracker.models.dailymeal;
 
 import com.example.testtracker.db.MealLocalDataSource;
-import com.example.testtracker.network.RemoteDataSource;
-import com.example.testtracker.network.NetworkCallBack;
+import com.example.testtracker.models.mealdetails.MealDetails;
+import com.example.testtracker.network.PlannerRemoteDataSource;
 
-public class MealRepositoryImpl implements RemoteDataSource {
-    private static final String TAG = "MainActivity";
-    MealLocalDataSource localDataSource;
-     RemoteDataSource remoteDataSource;
-     private static MealRepositoryImpl repo = null;
+import java.util.List;
 
-     private MealRepositoryImpl(MealLocalDataSource localDataSource, RemoteDataSource remoteDataSource){
-         this.localDataSource = localDataSource;
-         this.remoteDataSource = remoteDataSource;
-     }
-     public static MealRepositoryImpl getInstance(MealLocalDataSource localDataSource, RemoteDataSource remoteDataSource){
-         if(repo == null){
-             repo = new MealRepositoryImpl(localDataSource, remoteDataSource);
-         }
-         return repo;}
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
-    @Override
-    public void makeNetworkCall(NetworkCallBack networkCallBack) {
-        remoteDataSource.makeNetworkCall(networkCallBack);
+public class MealRepositoryImpl {
+    private final MealLocalDataSource localDataSource;
+    private final PlannerRemoteDataSource remoteDataSource;
+
+    public MealRepositoryImpl(MealLocalDataSource localDataSource, PlannerRemoteDataSource remoteDataSource) {
+        this.localDataSource = localDataSource;
+        this.remoteDataSource = remoteDataSource;
     }
-    public void getFavMeals(){
-        localDataSource.getAllMeals();
+
+    public static MealRepositoryImpl getInstance(MealLocalDataSource localDataSource, PlannerRemoteDataSource remoteDataSource) {
+        return new MealRepositoryImpl(localDataSource, remoteDataSource);
     }
-    public void addMeal(Meal meal){
+
+    public  Single<List<Meal>> getAllMeals() {
+        return remoteDataSource.getAllMeals()
+                .map(AllMeals::getMeals);
+    }
+
+    public @NonNull Single<MealDetails.MealsDTO> getMealDetails(String mealId) {
+        return remoteDataSource.getMealDetails(mealId)
+                .map(mealDetails -> mealDetails.getMeals().get(0));
+    }
+
+    public void addMeal(Meal meal) {
         localDataSource.insertMeal(meal);
-    }
-
-    public void getAllMeals(NetworkCallBack networkCallBack){
-         remoteDataSource.makeNetworkCall(networkCallBack);
-    }
-    public void getMealDetails(String id, NetworkCallBack networkCallBack){
-        remoteDataSource.getMealDetails(id, networkCallBack);
     }
 }

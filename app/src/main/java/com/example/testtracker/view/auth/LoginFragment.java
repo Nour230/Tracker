@@ -1,6 +1,8 @@
 package com.example.testtracker.view.auth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,8 @@ public class LoginFragment extends Fragment implements LoginView {
     private EditText emailEditText, passwordEditText;
 
     private FirebaseAuth myauth;
+
+    SharedPreferences sharedPreferences;
     private GoogleSignInClient googleSignInClient;
 
     private ImageButton googleLoginButton;
@@ -51,6 +55,7 @@ public class LoginFragment extends Fragment implements LoginView {
         passwordEditText = view.findViewById(R.id.edtPass);
         signupTextView = view.findViewById(R.id.signup);
         googleLoginButton = view.findViewById(R.id.googleLogin);
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         myauth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -66,10 +71,15 @@ public class LoginFragment extends Fragment implements LoginView {
         skipButton.setOnClickListener(v -> Navigation.findNavController(view)
                 .navigate(R.id.action_loginFragment_to_homeFragment));
 
-        loginButton.setOnClickListener(v -> presenter.login(
-                emailEditText.getText().toString(),
-                passwordEditText.getText().toString()
-        ));
+        loginButton.setOnClickListener(v -> {
+                    presenter.login(
+                            emailEditText.getText().toString(),
+                            passwordEditText.getText().toString());
+                    sharedPreferences.edit().putString("email", emailEditText.getText().toString()).apply();
+                    sharedPreferences.edit().putString("pass", passwordEditText.getText().toString()).apply();
+                    sharedPreferences.edit().putBoolean("isLogged", true).apply();
+        }
+        );
         googleLoginButton.setOnClickListener(v->{
             signIn();
         });

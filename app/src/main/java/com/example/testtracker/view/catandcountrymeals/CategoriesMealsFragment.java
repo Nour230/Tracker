@@ -75,13 +75,16 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         Log.i(TAG, "onViewCreated: "+categoryName);
         String categoryOrCountryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
         boolean isCountry = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getIsCountry();
+        boolean isIngrediant = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getIsIngrediant();
 
         Log.i(TAG, "onViewCreated: Name=" + categoryOrCountryName + " | isCountry=" + isCountry);
 
         // Use the flag to determine the appropriate API call
         if (isCountry) {
             presenter.getMealsByCountry(categoryOrCountryName);
-        } else {
+        } else if(isIngrediant){
+           presenter.getMealsByIngrediant(categoryOrCountryName);
+        }else {
             presenter.getMealsByCategory(categoryOrCountryName);
         }
         mealpresenter = new DailyMealPresenterImpl(this,
