@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.Category;
-import com.example.testtracker.view.interfaces.OnCaregoryClickListener;
+import com.example.testtracker.view.interfaces.OnMealClickListener;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     private final static String TAG = "productClient";
     private final Context context;
     private final List<Category> categoryList;
-    private final OnCaregoryClickListener listener;
-    public CategoriesAdapter(List<Category> categoryList, Context context, OnCaregoryClickListener listener) {
+    private final OnMealClickListener listener;
+    public CategoriesAdapter(List<Category> categoryList, Context context, OnMealClickListener listener) {
         this.listener = listener;
         this.categoryList = categoryList;
         this.context = context;

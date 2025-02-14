@@ -1,17 +1,21 @@
 package com.example.testtracker.models.allcategory;
 
-import com.example.testtracker.network.NetworkCallBack;
+import com.example.testtracker.network.PlannerRemoteDataSource;
 import com.example.testtracker.network.RemoteDataSource;
 
-public class CategoriesRepositoryImpl implements RemoteDataSource {
-    private static CategoriesRepositoryImpl repo = null;
-    RemoteDataSource remoteDataSource;
+import java.util.List;
 
-    private CategoriesRepositoryImpl(RemoteDataSource remoteDataSource) {
+import io.reactivex.rxjava3.core.Single;
+
+public class CategoriesRepositoryImpl {
+    private static CategoriesRepositoryImpl repo = null;
+    private final PlannerRemoteDataSource remoteDataSource;
+
+    private CategoriesRepositoryImpl(PlannerRemoteDataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
 
-    public static CategoriesRepositoryImpl getInstance(RemoteDataSource remoteDataSource) {
+    public static CategoriesRepositoryImpl getInstance(PlannerRemoteDataSource remoteDataSource) {
         if (repo == null) {
             repo = new CategoriesRepositoryImpl(remoteDataSource);
         }
@@ -19,12 +23,10 @@ public class CategoriesRepositoryImpl implements RemoteDataSource {
 
     }
 
-    public void getAllCategories(NetworkCallBack networkCallBack) {
-        remoteDataSource.makeNetworkCall(networkCallBack);
+    public Single<List<Category>> getAllCategories(){
+        return remoteDataSource.getAllCategories()
+                .map(AllCategories::getCategories);
     }
 
-    @Override
-    public void makeNetworkCall(NetworkCallBack networkCallBack) {
-        remoteDataSource.makeNetworkCall(networkCallBack);
-    }
+
 }

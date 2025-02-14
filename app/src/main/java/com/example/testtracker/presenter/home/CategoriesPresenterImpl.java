@@ -4,11 +4,16 @@ import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
 import com.example.testtracker.models.allcategory.Category;
 import com.example.testtracker.presenter.intefaces.CategoriesPresenter;
 import com.example.testtracker.view.interfaces.CategoriesView;
-import com.example.testtracker.network.NetworkCallBack;
 
 import java.util.List;
 
-public class CategoriesPresenterImpl implements CategoriesPresenter, NetworkCallBack {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class CategoriesPresenterImpl implements CategoriesPresenter {
     private final CategoriesView view;
     private final CategoriesRepositoryImpl repo;
 
@@ -18,15 +23,25 @@ public class CategoriesPresenterImpl implements CategoriesPresenter, NetworkCall
     }
     @Override
     public void getCategories() {
-        repo.getAllCategories(this);
-    }
-    @Override
-    public void onCategoriesSuccess(List<Category> categories) {
-        view.showCatData(categories);
-    }
+        repo.getAllCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Category>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
-    @Override
-    public void onFailure(String message) {
-        view.showError(message);
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<Category> categories) {
+                        view.showCatData(categories);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        view.showError(e.getMessage());
+                    }
+                });
+
     }
 }

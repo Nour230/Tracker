@@ -8,29 +8,33 @@ import com.example.testtracker.models.dailymeal.AllMeals;
 import com.example.testtracker.models.mealdetails.AllIngrediants;
 import com.example.testtracker.models.mealdetails.MealDetails;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface AllNetWorkService {
     @GET("random.php")
-    Call<AllMeals> getAllMeals();
+    Single<AllMeals> getAllMeals();
      @GET("categories.php")
-     Call<AllCategories> getAllCategories();
+     Single<AllCategories> getAllCategories();
 
      @GET("list.php?a=list")
-     Call<AllCounties> getAllCountries();
+     Single<AllCounties> getAllCountries();
     @GET("list.php?i=list")
-    Call<AllIngrediants> getAllIngredients();
+    Single<AllIngrediants> getAllIngredients();
      @GET("filter.php")
-     Call<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
+     Single<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
 
      @GET("filter.php")
-    Call<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
+    Single<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
 
 
      @GET("lookup.php")
-     Call<MealDetails> getMealDetails(@Query("i") String id);
+     Single<MealDetails> getMealDetails(@Query("i") String id);
+
+     @GET("filter.php")
+     Single<CategoryAllMeals> getMealsByIngrediant(@Query("i") String ingrediant);
 }
 
 

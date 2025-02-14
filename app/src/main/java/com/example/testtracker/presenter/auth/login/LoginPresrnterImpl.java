@@ -1,6 +1,7 @@
 package com.example.testtracker.presenter.auth.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -26,6 +27,7 @@ public class LoginPresrnterImpl implements LoginPresenter {
 
     @Override
     public void login(String email, String pass) {
+
         myauth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(
                         task -> {
