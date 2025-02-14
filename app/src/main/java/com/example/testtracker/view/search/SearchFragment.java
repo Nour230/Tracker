@@ -124,26 +124,31 @@ public class SearchFragment extends Fragment implements SearchViewinter {
             if (item instanceof Country) {
                 String countryName = ((Country) item).getStrArea();
                 Log.d("MainActivity", "Clicked on Country: " + countryName);
-                navigateToCategoriesMealsFragment(countryName, true);
+                navigateToCategoriesMealsFragment(countryName, true,false);
             } else if (item instanceof Category) {
                 String categoryName = ((Category) item).getStrCategory();
                 Log.d("MainActivity", "Clicked on Category: " + categoryName);
-                navigateToCategoriesMealsFragment(categoryName, false);
+                navigateToCategoriesMealsFragment(categoryName, false,false);
             } else if (item instanceof AllIngrediants.Ingrediants) {
                 String ingredientName = ((AllIngrediants.Ingrediants) item).getStrIngredient();
                 Log.d("MainActivity", "Clicked on Ingredient: " + ingredientName);
-                navigateToCategoriesMealsFragment(ingredientName, false);
+                navigateToCategoriesMealsFragment(ingredientName, false,true);
             }
         });
 
     }
 
-    private void navigateToCategoriesMealsFragment(String name, boolean isCountry) {
+    private void navigateToCategoriesMealsFragment(String name, boolean isCountry, boolean isIngrediant) {
         SearchFragmentDirections.ActionSearchFragmentToCategoriesMealsFragment action =
                 SearchFragmentDirections.actionSearchFragmentToCategoriesMealsFragment(name);
         if(isCountry){
             action.setIsCountry(true);
+            action.setIsIngrediant(false);
+        }else if(isIngrediant){
+            action.setIsIngrediant(true);
+            action.setIsCountry(false);
         }else{
+            action.setIsIngrediant(false);
             action.setIsCountry(false);
         }
         Navigation.findNavController(getView()).navigate(action);
