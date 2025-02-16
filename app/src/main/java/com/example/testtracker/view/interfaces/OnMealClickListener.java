@@ -9,6 +9,8 @@ public interface OnMealClickListener {
    default public void onContryClick(String country, View view){}
     default void onButtonClick(SavedMeals meal){}
 
+    default void onimageClick(){}
+
      default void deleteFromFav(SavedMeals meal){}
 
    default public void onCategoryClick(String category, View view){}

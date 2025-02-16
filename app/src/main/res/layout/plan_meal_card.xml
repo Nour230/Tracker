@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
     android:id="@+id/daymeal"
@@ -19,7 +19,7 @@
 
 
         <ImageView
-            android:id="@+id/mealImage"
+            android:id="@+id/planmealImage"
             android:layout_width="143dp"
             android:layout_height="137dp"
             android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <TextView
-            android:id="@+id/mealName"
+            android:id="@+id/planmealName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -38,10 +38,10 @@
             android:text="TextView"
             android:textColor="@color/home_background"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/mealImage"
+            app:layout_constraintStart_toEndOf="@+id/planmealImage"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
-            android:id="@+id/mealCat"
+            android:id="@+id/planmealCat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -50,11 +50,11 @@
             android:textColor="@color/home_background"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/mealImage"
-            app:layout_constraintTop_toBottomOf="@+id/mealName" />
+            app:layout_constraintStart_toEndOf="@+id/planmealImage"
+            app:layout_constraintTop_toBottomOf="@+id/planmealName" />
 
         <TextView
-            android:id="@+id/mealArea"
+            android:id="@+id/planmealArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/home_background"
@@ -63,23 +63,9 @@
             android:layout_marginTop="8dp"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/mealImage"
-            app:layout_constraintTop_toBottomOf="@+id/mealCat" />
+            app:layout_constraintStart_toEndOf="@+id/planmealImage"
+            app:layout_constraintTop_toBottomOf="@+id/planmealCat" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addtofav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/edittext"
-            android:fontFamily="@font/dancing_script_bold"
-            android:text="@string/add_to_fav"
-            android:textSize="20sp"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mealArea" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

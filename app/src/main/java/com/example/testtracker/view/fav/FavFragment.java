@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testtracker.R;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.models.db.SavedMeals;
-import com.example.testtracker.presenter.FavPresenterImpl;
+import com.example.testtracker.presenter.fav.FavPresenterImpl;
 import com.example.testtracker.view.adapter.FavAdapter;
 import com.example.testtracker.view.interfaces.FavView;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
@@ -58,10 +58,9 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
         adapter = new FavAdapter(getContext(), new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
 
-        presenter = new FavPresenterImpl(this, MealRepositoryImpl.getInstance(requireContext()));
+        presenter = new FavPresenterImpl(this, MealRepositoryImpl.getInstance(requireContext()), getContext());
         presenter.getFavMeals();
     }
-
     @Override
     public void showData(List<SavedMeals> meals) {
         remainmeals = meals;
@@ -99,5 +98,6 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
     @Override
     public void deleteFromFav(SavedMeals meal) {
         presenter.deletFromFav(meal);
+        presenter.deleteData(meal);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.testtracker.presenter.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
@@ -8,6 +10,11 @@ import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.dailymeal.Meal;
 import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.presenter.intefaces.DailyMealPresenter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -21,10 +28,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class DailyMealPresenterImpl implements DailyMealPresenter {
     private final DailyMealView view;
     private final MealRepositoryImpl repo;
-
-    public DailyMealPresenterImpl(DailyMealView view, MealRepositoryImpl repo) {
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    SharedPreferences sharedPreferences;
+    public DailyMealPresenterImpl(DailyMealView view, MealRepositoryImpl repo,Context context) {
         this.view = view;
         this.repo = repo;
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("meals");
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -89,9 +101,21 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
 
     }
 
-    @Override
-    public void addToPlan(SavedMeals meal) {
-        repo.addMeal(meal);
+    public void addToPlan(SavedMeals meal){
+        repo.addMeal(meal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            view.addToPlan();
+                        },
+                        error -> {
+                            view.showError(error.getMessage());}
+                );
+    }
+
+    public void getData(){
+        repo.getDataFromFiteBase();
     }
 
 }

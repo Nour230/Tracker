@@ -8,6 +8,8 @@ import java.util.List;
 public interface DailyMealView {
     default  void showData(List< MealDetails.MealsDTO> products){}
      void addToFav();
-     void showError(String message);
+    default void addToPlan(){}
+
+    void showError(String message);
     void showMealDetails(MealDetails.MealsDTO mealDetails);
 }

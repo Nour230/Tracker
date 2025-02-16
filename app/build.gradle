@@ -73,4 +73,7 @@ dependencies {
     //lottie
     implementation libs.lottie
 
+    //firebase
+    implementation(libs.firebase.database)
+
 }

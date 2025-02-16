@@ -55,12 +55,7 @@ public class CategoryMealsAdapter extends RecyclerView.Adapter<CategoryMealsAdap
                 listener.onMealClick(categoryMeals.getIdMeal(), v); // Ensure getIdMeal() returns the correct ID
             }
         });
-        holder.fav.setOnClickListener(v -> {
-            if (categoryMeals != null && listener != null) {
-                listener.onButtonClick(favMeal);
-                holder.fav.setText("Added to Fav");
-            }
-        });
+
     }
 
     @Override
@@ -77,13 +72,12 @@ public class CategoryMealsAdapter extends RecyclerView.Adapter<CategoryMealsAdap
     public static class CategoryMealsViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         ImageView image;
-        MaterialButton fav;
+
 
         public CategoryMealsViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.catMealName);
             image = itemView.findViewById(R.id.catMealImage);
-            fav = itemView.findViewById(R.id.cataddtofav);
         }
     }
 }
