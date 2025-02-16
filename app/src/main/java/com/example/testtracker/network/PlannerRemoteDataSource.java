@@ -59,14 +59,14 @@ public class PlannerRemoteDataSource implements RemoteDataSource {
         return mealservice.getAllIngredients();
     }
 
-    public Single<CategoryAllMeals>getMealsByCategory(String category){
+    public Single<AllMeals>getMealsByCategory(String category){
         return mealservice.getMealsByCategory(category);
     }
-    public Single<CategoryAllMeals> getMealsByCountry(String country){
+    public Single<AllMeals> getMealsByCountry(String country){
         return mealservice.getMealsByCountry(country);
     }
 
-    public Single<CategoryAllMeals> getMealsByIngrediant(String ingrediant){
+    public Single<AllMeals> getMealsByIngrediant(String ingrediant){
         return mealservice.getMealsByIngrediant(ingrediant);
     }
     public void dispose() {

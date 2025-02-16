@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.Category;
 import com.example.testtracker.models.allcountries.Country;
@@ -41,7 +42,7 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Inflate the category_card layout
+        // Inflate the search_card layout
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.search_card, parent, false);
         }
@@ -53,14 +54,32 @@ public class SearchAdapter extends BaseAdapter {
         Object item = items.get(position);
 
         if (item instanceof AllIngrediants.Ingrediants) {
-            textView.setText(((AllIngrediants.Ingrediants) item).getStrIngredient());
-            imageView.setImageResource(R.drawable.searchfood);
+            AllIngrediants.Ingrediants ingredient = (AllIngrediants.Ingrediants) item;
+            textView.setText(ingredient.getStrIngredient());
+
+            // Load the ingredient image using Glide
+            String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredient.getStrIngredient() + "-Small.png";
+            Glide.with(context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.searchfood) // Placeholder image while loading
+                    .error(R.drawable.searchfood) // Image to display if loading fails
+                    .into(imageView);
+
         } else if (item instanceof Category) {
             textView.setText(((Category) item).getStrCategory());
             imageView.setImageResource(R.drawable.searchfood);
         } else if (item instanceof Country) {
-            textView.setText(((Country) item).getStrArea());
-            imageView.setImageResource(R.drawable.worldmap);
+            Country country = (Country) item;
+            textView.setText(country.getStrArea());
+
+            // Load the country flag using Glide
+            String flagUrl = "https://www.themealdb.com/images/icons/flags/big/64/" +
+                    country.getStrArea().toLowerCase() + ".png";
+            Glide.with(context)
+                    .load(flagUrl)
+                    .placeholder(R.drawable.worldmap) // Placeholder image while loading
+                    .error(R.drawable.worldmap) // Image to display if loading fails
+                    .into(imageView);
         }
 
         return convertView;

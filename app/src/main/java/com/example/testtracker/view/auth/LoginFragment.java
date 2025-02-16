@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -72,36 +73,70 @@ public class LoginFragment extends Fragment implements LoginView {
                 .navigate(R.id.action_loginFragment_to_homeFragment));
 
         loginButton.setOnClickListener(v -> {
-                    presenter.login(
-                            emailEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                    sharedPreferences.edit().putString("email", emailEditText.getText().toString()).apply();
-                    sharedPreferences.edit().putString("pass", passwordEditText.getText().toString()).apply();
-                    sharedPreferences.edit().putBoolean("isLogged", true).apply();
-        }
-        );
-        googleLoginButton.setOnClickListener(v->{
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                // Show the alert dialog if fields are empty
+                showAlertDialog(requireContext(), getString(R.string.please_fill_in_all_the_fields));
+            } else {
+                // Proceed with login
+                presenter.login(email, password);
+            }
+        });
+
+        googleLoginButton.setOnClickListener(v -> {
             signIn();
         });
     }
 
     @Override
     public void loginSuccess() {
+        String id = presenter.getid();
+        sharedPreferences.edit().putString("email", emailEditText.getText().toString()).apply();
+        sharedPreferences.edit().putString("pass", passwordEditText.getText().toString()).apply();
+        sharedPreferences.edit().putString("id", id).apply();
+        sharedPreferences.edit().putBoolean("isLogged", true).apply();
         Navigation.findNavController(requireView())
                 .navigate(R.id.action_loginFragment_to_homeFragment);
     }
 
     @Override
     public void loginFailure(String errorMessage) {
-        Log.i(TAG, "loginFailure: "+errorMessage.toString());
+        Log.i(TAG, "loginFailure: " + errorMessage);
     }
+
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 123);
     }
+
     @Override
     public void googleSignInSuccess() {
         Navigation.findNavController(requireView())
                 .navigate(R.id.action_loginFragment_to_homeFragment);
+    }
+
+    private void showAlertDialog(Context context, String message) {
+        // Inflate the custom dialog layout
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.popup, null);
+
+        // Initialize the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(dialogView);
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Bind views from the custom layout
+        TextView messageTextView = dialogView.findViewById(R.id.tv_alert_message);
+        MaterialButton dismissButton = dialogView.findViewById(R.id.btn_dismiss);
+
+        // Set the dialog message
+        messageTextView.setText(message);
+
+        // Handle the dismiss button click
+        dismissButton.setOnClickListener(v -> dialog.dismiss());
     }
 }

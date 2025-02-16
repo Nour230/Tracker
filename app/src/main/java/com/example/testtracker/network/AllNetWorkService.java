@@ -24,17 +24,17 @@ public interface AllNetWorkService {
     @GET("list.php?i=list")
     Single<AllIngrediants> getAllIngredients();
      @GET("filter.php")
-     Single<CategoryAllMeals> getMealsByCategory(@Query("c") String category);
+     Single<AllMeals> getMealsByCategory(@Query("c") String category);
 
      @GET("filter.php")
-    Single<CategoryAllMeals> getMealsByCountry(@Query("a") String country);
+    Single<AllMeals> getMealsByCountry(@Query("a") String country);
 
 
      @GET("lookup.php")
      Single<MealDetails> getMealDetails(@Query("i") String id);
 
      @GET("filter.php")
-     Single<CategoryAllMeals> getMealsByIngrediant(@Query("i") String ingrediant);
+     Single<AllMeals> getMealsByIngrediant(@Query("i") String ingrediant);
 }
 
 

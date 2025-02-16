@@ -1,6 +1,7 @@
 package com.example.testtracker.view.home;
 
 import android.app.AlertDialog;
+import android.app.TaskInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,11 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
 import com.example.testtracker.models.allcategory.Category;
+import com.example.testtracker.models.db.SavedMeals;
 import com.example.testtracker.presenter.home.CategoriesPresenterImpl;
 import com.example.testtracker.view.adapter.CategoriesAdapter;
 import com.example.testtracker.view.interfaces.CategoriesView;
@@ -53,6 +57,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     DailyMealPresenterImpl mealpresenter;
     CategoriesPresenterImpl catpresenter;
     CountriesPresenterImpl countrypresenter;
+    Button fav;
     private static final String TAG = "MainActivity";
 
     public HomeFragment() {
@@ -102,24 +107,26 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
 
         //presenter
         mealpresenter = new DailyMealPresenterImpl(this,
-                 MealRepositoryImpl.getInstance(
-                        MealLocalDataSourceImpl.getInstance(getContext()),
-                        PlannerRemoteDataSource.getInstance()));
+                 MealRepositoryImpl.getInstance(getContext()));
         mealpresenter.getProducts();
         catpresenter = new CategoriesPresenterImpl(this,
-                CategoriesRepositoryImpl.getInstance(
-                        PlannerRemoteDataSource.getInstance()));
+                CategoriesRepositoryImpl.getInstance(getContext()));
         catpresenter.getCategories();
         countrypresenter = new CountriesPresenterImpl(this,
-                CountryRepositoryImpl.getInstance(
-                        PlannerRemoteDataSource.getInstance()));
+                CountryRepositoryImpl.getInstance(getContext()));
         countrypresenter.getCountries();
 
     }
 
     @Override
-    public void showData(List<Meal> products) {
+    public void showData(List< MealDetails.MealsDTO> products) {
         dailyadapter.updateData(products);
+    }
+
+    @Override
+    public void addToFav() {
+        Log.i(TAG, "addToFav: ");
+        Toast.makeText(getContext(), "Added to Fav", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -156,6 +163,13 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
                 HomeFragmentDirections.actionHomeFragmentToCategoriesMealsFragment(country);
         action.setIsCountry(true); // Set flag to indicate it's a country
         Navigation.findNavController(view).navigate(action);
+    }
+
+    @Override
+    public void onButtonClick(SavedMeals meal) {
+        if (mealpresenter != null) {
+            mealpresenter.addToFav(meal);
+        }
     }
 
 

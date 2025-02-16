@@ -12,6 +12,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginPresrnterImpl implements LoginPresenter {
@@ -35,9 +36,15 @@ public class LoginPresrnterImpl implements LoginPresenter {
                                 view.loginSuccess();
                             } else {
                                 view.loginFailure(task.getException().getMessage());
-
                             }
                         });
+    }
+
+    @Override
+    public String getid() {
+        FirebaseUser currentUser = myauth.getCurrentUser();
+        String id = currentUser.getUid();
+        return  id;
     }
 
     @Override

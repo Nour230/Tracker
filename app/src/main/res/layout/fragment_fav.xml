@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/favgroup"
-        app:constraint_referenced_ids="imageView3,textView" />
+        app:constraint_referenced_ids="favimage,favtxt" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/favimage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="256dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/favtxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
@@ -34,9 +34,10 @@
         android:textColor="@color/white"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/favimage" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favrec"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"

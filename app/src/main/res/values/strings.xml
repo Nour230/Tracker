@@ -34,4 +34,7 @@
     <string name="category">Category</string>
     <string name="ingrediant">Ingrediant</string>
     <string name="defult_web_clint_id">55553294447126-3lkg0v6necb3g96v06hud12jie94as0b.apps.googleusercontent.com</string>
+    <string name="add_to_plan">Add To Plan</string>
+    <string name="please_fill_in_all_the_fields">Please fill in all the fields</string>
+    <string name="ok">Ok</string>
 </resources>
