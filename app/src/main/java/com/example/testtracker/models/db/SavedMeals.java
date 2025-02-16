@@ -29,6 +29,9 @@ public class SavedMeals {
     boolean isFav;
     boolean isPlan;
 
+    public SavedMeals() {
+    }
+
     public SavedMeals(@NonNull String idMeal, @NonNull String userId, @NonNull String date, MealDetails.MealsDTO meal, boolean isFav, boolean isPlan) {
         this.idMeal = idMeal;
         this.userId = userId;

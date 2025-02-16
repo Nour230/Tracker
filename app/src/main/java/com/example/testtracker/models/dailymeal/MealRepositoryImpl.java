@@ -9,6 +9,7 @@ import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.network.PlannerRemoteDataSource;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Completable;
@@ -35,6 +36,10 @@ public class MealRepositoryImpl {
     public Single<List<SavedMeals>> getAllSavedMeals() {
         return localDataSource.getFavMeals();
     }
+    public Single<List<SavedMeals>> getAllPlanMeals() {
+        return localDataSource.getPlanMeals();
+    }
+
     public @NonNull Single<MealDetails.MealsDTO> getMealDetails(String mealId) {
         return remoteDataSource.getMealDetails(mealId)
                 .map(mealDetails -> mealDetails.getMeals().get(0));
@@ -46,5 +51,8 @@ public class MealRepositoryImpl {
 
     public Completable deleteMeal(SavedMeals meal) {
         return localDataSource.deleteMeal(meal);
+    }
+    public void getDataFromFiteBase(){
+        localDataSource.fetchDataFromFirebase();
     }
 }

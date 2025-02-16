@@ -67,6 +67,7 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
                 holder.fav.setText("Added to Fav");
             }
         });
+
     }
 
     @Override
@@ -82,7 +83,7 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
 
     public static class MealViewHolder extends RecyclerView.ViewHolder {
         TextView name, area, category;
-        ImageView image;
+        ImageView image, plan;
         CardView cardView;
         MaterialButton fav;
 

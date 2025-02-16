@@ -23,8 +23,11 @@
             app:layout_constraintTop_toBottomOf="@+id/satday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/satrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -51,8 +54,11 @@
             app:layout_constraintTop_toBottomOf="@+id/sunday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sunrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -80,8 +86,11 @@
             app:layout_constraintTop_toBottomOf="@+id/monday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/monrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -109,8 +118,11 @@
             app:layout_constraintTop_toBottomOf="@+id/tuesday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tuerec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -138,8 +150,11 @@
             app:layout_constraintTop_toBottomOf="@+id/wedday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/wedrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -167,8 +182,11 @@
             app:layout_constraintTop_toBottomOf="@+id/thurday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/thurrec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 
@@ -198,8 +216,11 @@
             app:layout_constraintTop_toBottomOf="@+id/friday">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/frirec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 tools:listitem="@layout/category_meals" />
         </androidx.cardview.widget.CardView>
 

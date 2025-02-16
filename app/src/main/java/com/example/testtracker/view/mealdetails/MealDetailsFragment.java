@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,21 +29,17 @@ import com.example.testtracker.models.mealdetails.AllIngrediants;
 import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.models.mealdetails.MealDetailsRepositoryImpl;
 import com.example.testtracker.presenter.mealdetails.MealDetailsPresenterImpl;
+import com.example.testtracker.utils.DateUtile;
 import com.example.testtracker.view.adapter.MealDetailsAdapter;
 import com.example.testtracker.view.interfaces.MealDetailsView;
+import com.example.testtracker.view.interfaces.OnDateSelectedListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-public class MealDetailsFragment extends Fragment implements MealDetailsView {
+public class MealDetailsFragment extends Fragment implements MealDetailsView, OnDateSelectedListener {
     private static final String TAG = "MainActivity";
     MealDetailsPresenterImpl presenter;
     MealDetailsAdapter adapter;
@@ -58,7 +54,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     public MealDetailsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +89,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         adapter = new MealDetailsAdapter(getContext(), new ArrayList<>());
         recyclerView.setAdapter(adapter);
         presenter = new MealDetailsPresenterImpl(this,
-                MealDetailsRepositoryImpl.getInstance(getContext()));
+                MealDetailsRepositoryImpl.getInstance(getContext()), getContext());
 
         // Retrieve passed MealDetails object
         MealDetailsFragmentArgs args = MealDetailsFragmentArgs.fromBundle(getArguments());
@@ -112,77 +107,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         }
         fav.setOnClickListener(v -> {
             presenter.addToFav(favMeal);
+            presenter.sendData(favMeal);
         });
 
-        plan.setOnClickListener(v -> showDatePicker());
-
-
+        plan.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            Context context = getContext();
+            DateUtile.showDatePicker(fragmentManager, context, this);
+        });
     }
 
-    private void showDatePicker() {
-        // Get the current date and time in the Cairo timezone
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Africa/Cairo"));
-
-        // Set the start of the range to today (in UTC milliseconds)
-        long startOfRange = calendar.getTimeInMillis();
-
-        // Set the end of the range to 7 days from today (in UTC milliseconds)
-        calendar.add(Calendar.DAY_OF_YEAR, 6); // Add 7 days to the current date
-        long endOfRange = calendar.getTimeInMillis();
-
-        // Create a calendar constraint to allow only dates from today to 7 days from today
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
-        constraintsBuilder.setStart(startOfRange); // Start from today
-        constraintsBuilder.setEnd(endOfRange); // End at 7 days from today
-        constraintsBuilder.setValidator(new CalendarConstraints.DateValidator() {
-            @Override
-            public boolean isValid(long date) {
-                return date >= startOfRange && date <= endOfRange; // Only allow dates within the range
-            }
-
-            @Override
-            public int describeContents() {
-                return 0;
-            }
-
-            @Override
-            public void writeToParcel(@NonNull Parcel parcel, int i) {
-            }
-        });
-
-        // Create the date picker
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select a day (today to 7 days from now)")
-                .setCalendarConstraints(constraintsBuilder.build())
-                .setSelection(startOfRange) // Default selection: today (in UTC milliseconds)
-                .build();
-
-        // Show the date picker
-        datePicker.show(getParentFragmentManager(), "DATE_PICKER");
-
-        // Handle the selected date
-        datePicker.addOnPositiveButtonClickListener(selection -> {
-            // Convert the selected date to a readable format
-            Calendar selectedCalendar = Calendar.getInstance(TimeZone.getTimeZone("Africa/Cairo"));
-            selectedCalendar.setTimeInMillis(selection);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String selectedDate = format.format(selectedCalendar.getTime());
-
-            // Notify the user
-            Toast.makeText(getContext(), "Selected Date: " + selectedDate, Toast.LENGTH_SHORT).show();
-
-            // Call the presenter's addToPlan method with the selected date
-            MealDetailsFragmentArgs args = MealDetailsFragmentArgs.fromBundle(getArguments());
-            MealDetails.MealsDTO mealDetails = args.getMeal();
-            sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            String userId = sharedPreferences.getString("id", null);
-            SavedMeals planMeal = new SavedMeals(mealDetails.getIdMeal(), userId, selectedDate, mealDetails, false, true);
-
-            if (mealDetails != null) {
-                presenter.addToPlan(planMeal); // Pass the meal details and selected date
-            }
-        });
-    }    private void loadVideo(String videoUrl) {
+    private void loadVideo(String videoUrl) {
         // Extract YouTube video ID
         String videoId = videoUrl.substring(videoUrl.lastIndexOf("=") + 1);
         String embedUrl = "https://www.youtube.com/embed/" + videoId;
@@ -197,14 +132,12 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     }
 
     private void displayMealDetails(MealDetails.MealsDTO mealDetails) {
-
         name.setText(mealDetails.getStrMeal());
         country.setText(mealDetails.getStrArea());
         category.setText(mealDetails.getStrCategory());
         instructions.setText(mealDetails.getStrInstructions());
 
         Glide.with(this).load(mealDetails.getStrMealThumb()).into(mealImage);
-
 
         List<AllIngrediants.Ingrediants> ingredientsList = new ArrayList<>();
 
@@ -219,10 +152,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
             }
         }
 
-
         adapter.updateData(ingredientsList);
     }
-
 
     private String getFieldValue(MealDetails.MealsDTO mealDetails, String methodName) {
         try {
@@ -236,7 +167,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
 
     @Override
     public void showMealDetails(MealDetails.MealsDTO meal) {
-
     }
 
     @Override
@@ -261,4 +191,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         dialog.show();
     }
 
+    @Override
+    public void onDateSelected( String formattedDate) {
+        MealDetailsFragmentArgs args = MealDetailsFragmentArgs.fromBundle(getArguments());
+        MealDetails.MealsDTO mealDetails = args.getMeal();
+        sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("id", null);
+        SavedMeals planMeal = new SavedMeals(mealDetails.getIdMeal(), userId, formattedDate, mealDetails, false, true);
+
+        if (mealDetails != null) {
+            presenter.addToPlan(planMeal); // Pass the meal details and selected date
+            presenter.sendData(planMeal);
+        }
+    }
 }

@@ -89,7 +89,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
             presenter.getMealsByCategory(categoryOrCountryName);
         }
         mealpresenter = new DailyMealPresenterImpl(this,
-                MealRepositoryImpl.getInstance(getContext()));
+                MealRepositoryImpl.getInstance(getContext()),getContext());
         mealpresenter.getProducts();
 
     }
