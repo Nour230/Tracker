@@ -7,20 +7,25 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.testtracker.models.dailymeal.Meal;
+import com.example.testtracker.models.db.SavedMeals;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 
 public interface MealDAO {
-    @Query("SELECT * FROM meal")
-    LiveData<List<Meal>> getAllMeals();
+    @Query("SELECT * FROM meal Where isFav = 1")
+    Single<List<SavedMeals>> getFavMeals();
 
+    @Query("SELECT * FROM meal Where isPlan = 1")
+    Single<List<SavedMeals>> getPlanMeals();
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMeal(Meal meal);
+    Completable insertMeal(SavedMeals meal);
 
     @Delete
-    void deleteMeal(Meal meal);
+    Completable deleteMeal(SavedMeals meal);
 
 }

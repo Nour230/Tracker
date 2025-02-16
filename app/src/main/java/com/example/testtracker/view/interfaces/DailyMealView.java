@@ -6,7 +6,8 @@ import com.example.testtracker.models.mealdetails.MealDetails;
 import java.util.List;
 
 public interface DailyMealView {
-    default  void showData(List<Meal> products){}
+    default  void showData(List< MealDetails.MealsDTO> products){}
+     void addToFav();
      void showError(String message);
     void showMealDetails(MealDetails.MealsDTO mealDetails);
 }

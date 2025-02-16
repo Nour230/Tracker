@@ -4,5 +4,7 @@ import android.content.Intent;
 
 public interface LoginPresenter {
     public void login(String email, String pass);
+    public String getid();
+
     void handleGoogleSignInResult(Intent data);
 }

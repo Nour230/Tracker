@@ -20,6 +20,7 @@ import com.example.testtracker.R;
 import com.example.testtracker.db.MealLocalDataSourceImpl;
 import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
 import com.example.testtracker.models.catandcountrymeals.CategoryMealsReposetoryImpl;
+import com.example.testtracker.models.db.SavedMeals;
 import com.example.testtracker.presenter.catandcountrymeals.CategoryMealsPresenterImpl;
 import com.example.testtracker.view.interfaces.CategoryMealsView;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
@@ -70,7 +71,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         adapter = new CategoryMealsAdapter(new ArrayList<>(),getContext(),this);
         recyclerView.setAdapter(adapter);
         presenter = new CategoryMealsPresenterImpl(this,
-                CategoryMealsReposetoryImpl.getInstance(PlannerRemoteDataSource.getInstance()));
+                CategoryMealsReposetoryImpl.getInstance(getContext()));
         String categoryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
         Log.i(TAG, "onViewCreated: "+categoryName);
         String categoryOrCountryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
@@ -88,9 +89,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
             presenter.getMealsByCategory(categoryOrCountryName);
         }
         mealpresenter = new DailyMealPresenterImpl(this,
-                MealRepositoryImpl.getInstance(
-                        MealLocalDataSourceImpl.getInstance(getContext()),
-                        PlannerRemoteDataSource.getInstance()));
+                MealRepositoryImpl.getInstance(getContext()));
         mealpresenter.getProducts();
 
     }
@@ -98,8 +97,13 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
 
 
     @Override
-    public void showCatData(List<CategoryMeals> products) {
+    public void showCatData(List<MealDetails.MealsDTO> products) {
         adapter.updateData(products);
+    }
+
+    @Override
+    public void addToFav() {
+
     }
 
     @Override
@@ -124,5 +128,10 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         if (mealpresenter != null) {
             mealpresenter.fetchMealDetails(mealId);
         }
+    }
+
+    @Override
+    public void onButtonClick(SavedMeals meal) {
+
     }
 }

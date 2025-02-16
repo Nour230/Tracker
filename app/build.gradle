@@ -67,7 +67,10 @@ dependencies {
     implementation libs.rxandroid
     implementation libs.adapter.rxjava3
 
+
+    implementation libs.room.rxjava3
+
     //lottie
-    implementation 'com.airbnb.android:lottie:6.6.2'
+    implementation libs.lottie
 
 }

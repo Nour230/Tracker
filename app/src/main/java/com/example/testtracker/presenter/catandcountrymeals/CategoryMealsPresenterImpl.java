@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.testtracker.models.catandcountrymeals.CategoryMeals;
 import com.example.testtracker.models.catandcountrymeals.CategoryMealsReposetoryImpl;
+import com.example.testtracker.models.db.SavedMeals;
+import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.presenter.intefaces.CategoryMealsPresenter;
 import com.example.testtracker.view.interfaces.CategoryMealsView;
 
@@ -31,12 +33,12 @@ public class CategoryMealsPresenterImpl implements CategoryMealsPresenter {
         repo.getAllCategoriesMeals(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<CategoryMeals>>() {
+                .subscribe(new SingleObserver<List<MealDetails.MealsDTO>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                     }
                     @Override
-                    public void onSuccess(@NonNull List<CategoryMeals> categoryMeals) {
+                    public void onSuccess(@NonNull List<MealDetails.MealsDTO> categoryMeals) {
                         view.showCatData(categoryMeals);
                     }
 
@@ -53,14 +55,14 @@ public class CategoryMealsPresenterImpl implements CategoryMealsPresenter {
         repo.getAllCountriesMeals(country)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<CategoryMeals>>() {
+                .subscribe(new SingleObserver<List<MealDetails.MealsDTO>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<CategoryMeals> categoryMeals) {
+                    public void onSuccess(@NonNull List<MealDetails.MealsDTO> categoryMeals) {
                         view.showCatData(categoryMeals);
                     }
 
@@ -76,14 +78,14 @@ public class CategoryMealsPresenterImpl implements CategoryMealsPresenter {
         repo.getAllIngrediantsMeals(ingrediant)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<CategoryMeals>>() {
+                .subscribe(new SingleObserver<List<MealDetails.MealsDTO>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<CategoryMeals> categoryMeals) {
+                    public void onSuccess(@NonNull List<MealDetails.MealsDTO> categoryMeals) {
                         view.showCatData(categoryMeals);
                     }
 
@@ -92,6 +94,27 @@ public class CategoryMealsPresenterImpl implements CategoryMealsPresenter {
                         view.showError(e.getMessage());
                     }
                 });
+    }
+
+    @Override
+    public void addToFav(SavedMeals meal) {
+        Log.i("MainActivity", "addToFav fun: "+meal.getIdMeal());
+//        repo.addMeal(meal)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        () -> {
+//                            view.addToFav();
+//                        },
+//                        error -> {
+//                            view.showError(error.getMessage());}
+//                );
+
+    }
+
+    @Override
+    public void addToPlan(SavedMeals meal) {
+
     }
 
 }

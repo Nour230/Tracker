@@ -1,6 +1,9 @@
 package com.example.testtracker.presenter.home;
 
+import android.util.Log;
+
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
+import com.example.testtracker.models.db.SavedMeals;
 import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.models.dailymeal.Meal;
 import com.example.testtracker.models.mealdetails.MealDetails;
@@ -10,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -28,14 +32,14 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
         repo.getAllMeals()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Meal>>() {
+                .subscribe(new SingleObserver<List< MealDetails.MealsDTO>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         // Handle subscription if needed
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<Meal> meals) {
+                    public void onSuccess(@NonNull List< MealDetails.MealsDTO> meals) {
                         view.showData(meals);
                     }
 
@@ -71,12 +75,22 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
     }
 
     @Override
-    public void addToFav(Meal meal) {
-        repo.addMeal(meal);
+    public void addToFav(SavedMeals meal) {
+          repo.addMeal(meal)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(
+                          () -> {
+                              view.addToFav();
+                          },
+                          error -> {
+                              view.showError(error.getMessage());}
+                  );
+
     }
 
     @Override
-    public void addToPlan(Meal meal) {
+    public void addToPlan(SavedMeals meal) {
         repo.addMeal(meal);
     }
 

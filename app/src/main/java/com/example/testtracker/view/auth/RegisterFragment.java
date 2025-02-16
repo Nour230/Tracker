@@ -1,50 +1,43 @@
 package com.example.testtracker.view.auth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.testtracker.R;
 import com.example.testtracker.presenter.auth.signup.RegisterPresenter;
 import com.example.testtracker.presenter.auth.signup.RegisterPresenterImpl;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
-
-import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment implements RegisterView {
-    MaterialButton signup;
-    EditText email, pass,confirmpass;
     private static final String TAG = "MainActivity";
-    private FirebaseAuth myauth;
-    private GoogleSignInClient googleSignInClient;
+    MaterialButton signup;
+    EditText email, pass, confirmpass;
     MaterialButton Skip;
     TextView login;
     RegisterPresenter presenter;
     ImageButton google;
+    private FirebaseAuth myauth;
+    private GoogleSignInClient googleSignInClient;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -81,21 +74,26 @@ public class RegisterFragment extends Fragment implements RegisterView {
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
         presenter = new RegisterPresenterImpl(this);
         //logic////////////////////////////////////////////
-        login.setOnClickListener(v->{
+        login.setOnClickListener(v -> {
             Navigation.findNavController(view)
                     .navigate(R.id.action_registerFragment_to_loginFragment);
         });
-        Skip.setOnClickListener(v->{
+        Skip.setOnClickListener(v -> {
             Navigation.findNavController(view)
                     .navigate(R.id.action_registerFragment_to_homeFragment);
         });
-        signup.setOnClickListener(v->{
-            signUp(email.getText().toString(),
-                    pass.getText().toString(),
-                    confirmpass.getText().toString()
-                    );
+        signup.setOnClickListener(v -> {
+            String email = this.email.getText().toString().trim();
+            String pass = this.pass.getText().toString().trim();
+            String confirmpass = this.confirmpass.getText().toString().trim();
+            if (email.isEmpty() || pass.isEmpty() || confirmpass.isEmpty()) {
+                // Show the alert dialog if fields are empty
+                showAlertDialog(requireContext(), getString(R.string.please_fill_in_all_the_fields));
+            } else {
+                signUp(email, pass, confirmpass);
+            }
         });
-        google.setOnClickListener(v->{
+        google.setOnClickListener(v -> {
             signIn();
         });
 
@@ -103,10 +101,9 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
 
     private void signUp(String email, String pass, String confirmpass) {
-        if(pass.equals(confirmpass)){
-           presenter.register(email,pass);
-        }
-        else {
+        if (pass.equals(confirmpass)) {
+            presenter.register(email, pass);
+        } else {
             //display error
         }
     }
@@ -114,7 +111,6 @@ public class RegisterFragment extends Fragment implements RegisterView {
     private void signout() {
         myauth.signOut();
     }
-
 
 
     private void signIn() {
@@ -129,6 +125,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
             presenter.handleGoogleSignInResult(data);
         }
     }
+
     @Override
     public void registerSuccess() {
         Navigation.findNavController(requireView())
@@ -137,8 +134,9 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void registerFailure(String errorMessage) {
-        Log.i(TAG, "registerFailure: "+errorMessage);
+        Log.i(TAG, "registerFailure: " + errorMessage);
     }
+
     @Override
     public void googleSignInSuccess() {
         Navigation.findNavController(requireView())
@@ -147,7 +145,31 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void googleSignInFailure(String errorMessage) {
-        Log.i(TAG, "registerFailure: "+errorMessage);
+        Log.i(TAG, "registerFailure: " + errorMessage);
+    }
+
+
+    private void showAlertDialog(Context context, String message) {
+        // Inflate the custom dialog layout
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.popup, null);
+
+        // Initialize the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(dialogView);
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Bind views from the custom layout
+        TextView messageTextView = dialogView.findViewById(R.id.tv_alert_message);
+        MaterialButton dismissButton = dialogView.findViewById(R.id.btn_dismiss);
+
+        // Set the dialog message
+        messageTextView.setText(message);
+
+        // Handle the dismiss button click
+        dismissButton.setOnClickListener(v -> dialog.dismiss());
     }
 
 
