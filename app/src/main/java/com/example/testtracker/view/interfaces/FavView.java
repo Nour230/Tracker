@@ -5,7 +5,7 @@ import com.example.testtracker.models.db.SavedMeals;
 import java.util.List;
 
 public interface FavView {
-    public void showData(List<SavedMeals> meals);
+    public void showFavData(List<SavedMeals> meals);
     public void deleteFromFav();
     public void showError(String message);
 }

@@ -47,7 +47,7 @@ public class FavPresenterImpl implements FavPresenter {
 
                     @Override
                     public void onSuccess(@NonNull List<SavedMeals> savedMeals) {
-                        view.showData(savedMeals);
+                        view.showFavData(savedMeals);
                     }
 
                     @Override

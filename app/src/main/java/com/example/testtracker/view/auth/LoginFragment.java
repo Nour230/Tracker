@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import com.example.testtracker.R;
 import com.example.testtracker.presenter.auth.login.LoginPresenter;
 import com.example.testtracker.presenter.auth.login.LoginPresrnterImpl;
+import com.example.testtracker.view.forms.Dialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -78,7 +79,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
             if (email.isEmpty() || password.isEmpty()) {
                 // Show the alert dialog if fields are empty
-                showAlertDialog(requireContext(), getString(R.string.please_fill_in_all_the_fields));
+                Dialog.showAlertDialog(requireContext(), getString(R.string.please_fill_in_all_the_fields));
             } else {
                 // Proceed with login
                 presenter.login(email, password);
@@ -103,7 +104,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void loginFailure(String errorMessage) {
-        Log.i(TAG, "loginFailure: " + errorMessage);
+        Dialog.showAlertDialog(requireContext(), getString(R.string.wrong_email_or_password));
     }
 
     private void signIn() {
@@ -117,26 +118,4 @@ public class LoginFragment extends Fragment implements LoginView {
                 .navigate(R.id.action_loginFragment_to_homeFragment);
     }
 
-    private void showAlertDialog(Context context, String message) {
-        // Inflate the custom dialog layout
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.popup, null);
-
-        // Initialize the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(dialogView);
-
-        // Create and show the dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        // Bind views from the custom layout
-        TextView messageTextView = dialogView.findViewById(R.id.tv_alert_message);
-        MaterialButton dismissButton = dialogView.findViewById(R.id.btn_dismiss);
-
-        // Set the dialog message
-        messageTextView.setText(message);
-
-        // Handle the dismiss button click
-        dismissButton.setOnClickListener(v -> dialog.dismiss());
-    }
 }

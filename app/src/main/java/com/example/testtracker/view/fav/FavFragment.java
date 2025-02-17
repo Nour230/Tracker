@@ -10,25 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testtracker.R;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.models.db.SavedMeals;
+import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.presenter.fav.FavPresenterImpl;
+import com.example.testtracker.presenter.home.DailyMealPresenterImpl;
 import com.example.testtracker.view.adapter.FavAdapter;
+import com.example.testtracker.view.home.HomeFragmentDirections;
+import com.example.testtracker.view.interfaces.DailyMealView;
 import com.example.testtracker.view.interfaces.FavView;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavFragment extends Fragment implements FavView, OnMealClickListener {
+public class FavFragment extends Fragment implements FavView, OnMealClickListener, DailyMealView {
 
     private static final String TAG = "MainActivity";
     Group group;
     List<SavedMeals> remainmeals;
+    DailyMealPresenterImpl mealpresenter;
     private FavPresenterImpl presenter;
     private RecyclerView recyclerView;
     private FavAdapter adapter;
@@ -57,12 +63,15 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new FavAdapter(getContext(), new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
-
+        mealpresenter = new DailyMealPresenterImpl(this,
+                MealRepositoryImpl.getInstance(getContext()), getContext());
         presenter = new FavPresenterImpl(this, MealRepositoryImpl.getInstance(requireContext()), getContext());
         presenter.getFavMeals();
     }
+
+
     @Override
-    public void showData(List<SavedMeals> meals) {
+    public void showFavData(List<SavedMeals> meals) {
         remainmeals = meals;
         if (meals == null || meals.isEmpty()) {
             group.setVisibility(View.VISIBLE);
@@ -72,7 +81,6 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
             recyclerView.setVisibility(View.VISIBLE);
             adapter.updateData(meals);
         }
-
     }
 
     @Override
@@ -100,4 +108,18 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
         presenter.deletFromFav(meal);
         presenter.deleteData(meal);
     }
+
+    @Override
+    public void onMealClick(String mealId, View view) {
+        if (mealpresenter != null) {
+            mealpresenter.fetchMealDetails(mealId);
+        }
+    }
+    @Override
+    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
+        FavFragmentDirections.ActionFavFragmentToMealDetailsFragment action =
+                FavFragmentDirections.actionFavFragmentToMealDetailsFragment(mealDetails);
+        Navigation.findNavController(requireView()).navigate(action);
+    }
+
 }

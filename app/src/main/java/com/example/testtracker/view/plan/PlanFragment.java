@@ -68,15 +68,7 @@ public class PlanFragment extends Fragment implements PlanView {
         wedrec = view.findViewById(R.id.wedrec);
         thurec = view.findViewById(R.id.thurrec);
         frirec = view.findViewById(R.id.frirec);
-//        linearLayoutManager = new LinearLayoutManager(getContext());
-//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        satrec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        sunrec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        monrec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        tuerec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        wedrec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        thurec.setLayoutManager(new LinearLayoutManager(getContext()));
-//        frirec.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         presenter = new PlanPresenterImpl(this, MealRepositoryImpl.getInstance(getContext()));
         presenter.getPlanMeals();

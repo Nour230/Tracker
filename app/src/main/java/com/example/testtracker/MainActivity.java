@@ -7,8 +7,10 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -104,40 +107,18 @@ public class MainActivity extends AppCompatActivity {
             home.setVisibility(View.VISIBLE); // Show the FragmentContainerView
             lottieAnimationView.setVisibility(View.GONE); // Hide Lottie animation
             lottieAnimationView.pauseAnimation(); // Pause animation
-            Log.d(TAG, "Network is available: FragmentContainerView is visible, Lottie animation is hidden.");
         } else {
             // Network is lost
-            Log.d(TAG, "Network is lost: Checking current fragment...");
-
             if (fragmentId == R.id.favFragment || fragmentId == R.id.planFragment) {
                 home.setVisibility(View.VISIBLE); // Ensure these fragments stay visible
                 lottieAnimationView.setVisibility(View.GONE); // Hide animation
                 lottieAnimationView.pauseAnimation();
-                Log.d(TAG, "In favFragment or planFragment: FragmentContainerView is visible, Lottie animation is hidden.");
             } else {
                 // If not in favFragment or planFragment, hide the home view and show animation
                 home.setVisibility(View.GONE);
                 lottieAnimationView.setVisibility(View.VISIBLE);
                 lottieAnimationView.playAnimation();
-                Log.d(TAG, "Not in favFragment or planFragment: FragmentContainerView is hidden, Lottie animation is visible.");
             }
-        }
-    }
-
-    /**
-     * Helper method to map fragment ID to fragment name.
-     */
-    private String getFragmentName(int fragmentId) {
-        if (fragmentId == R.id.homeFragment) {
-            return "HomeFragment";
-        } else if (fragmentId == R.id.searchFragment) {
-            return "SearchFragment";
-        } else if (fragmentId == R.id.planFragment) {
-            return "PlanFragment";
-        } else if (fragmentId == R.id.favFragment) {
-            return "FavFragment";
-        } else {
-            return "UnknownFragment";
         }
     }
 
@@ -160,14 +141,17 @@ public class MainActivity extends AppCompatActivity {
             public void onAvailable(@NonNull Network network) {
                 runOnUiThread(() -> {
                     isNetworkAvailable.postValue(true); // Update LiveData
-                    Toast.makeText(MainActivity.this, "Network connected", Toast.LENGTH_SHORT).show();
+                    // Show Snackbar with green background for connected state
+                    showCustomSnackbar("Network connected", R.color.green);
                 });
             }
+
             @Override
             public void onLost(@NonNull Network network) {
                 runOnUiThread(() -> {
                     isNetworkAvailable.postValue(false); // Update LiveData
-                    Toast.makeText(MainActivity.this, "Network disconnected", Toast.LENGTH_SHORT).show();
+                    // Show Snackbar with red background for disconnected state
+                    showCustomSnackbar("Network disconnected", R.color.red);
                 });
             }
         };
@@ -189,4 +173,26 @@ public class MainActivity extends AppCompatActivity {
     public MutableLiveData<Boolean> getIsNetworkAvailable() {
         return isNetworkAvailable;
     }
+
+    private void showCustomSnackbar(String message, int bgColor) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
+
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundTintList(getResources().getColorStateList(bgColor, getTheme())); // Set background color
+
+        // Set width to wrap content
+        ViewGroup.LayoutParams params = snackbarView.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT; // Adjust width dynamically
+        snackbarView.setLayoutParams(params);
+
+        // Adjust positioning - Center horizontally and move slightly up from the bottom
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL; // Center horizontally at bottom
+        layoutParams.bottomMargin = 150; // Adjust vertical position slightly above bottom
+        snackbarView.setLayoutParams(layoutParams);
+
+        snackbar.show();
+    }
+
+
 }

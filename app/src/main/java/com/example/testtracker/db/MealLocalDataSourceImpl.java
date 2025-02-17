@@ -64,25 +64,27 @@ public class MealLocalDataSourceImpl {
     }
     public void fetchDataFromFirebase() {
         String id = sharedPreferences.getString("id", null);
-        myRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i("MainActivity", "onDataChange: " + dataSnapshot.getChildren());
-                for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot dateSnapshot : mealSnapshot.getChildren()) {
-                        SavedMeals savedMeals = dateSnapshot.getValue(SavedMeals.class);
-                        if (savedMeals != null) {
-                            // Insert the meal into the Room database
-                            dao.insertMeal(savedMeals).subscribeOn(Schedulers.io()).subscribe();
+        if(id != null){
+            myRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i("MainActivity", "onDataChange: " + dataSnapshot.getChildren());
+                    for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot dateSnapshot : mealSnapshot.getChildren()) {
+                            SavedMeals savedMeals = dateSnapshot.getValue(SavedMeals.class);
+                            if (savedMeals != null) {
+                                // Insert the meal into the Room database
+                                dao.insertMeal(savedMeals).subscribeOn(Schedulers.io()).subscribe();
+                            }
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("SavedMealsRepository", "Error fetching data from Firebase", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("SavedMealsRepository", "Error fetching data from Firebase", error.toException());
+                }
+            });
+        }
     }
 }

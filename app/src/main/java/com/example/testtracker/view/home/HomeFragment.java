@@ -30,6 +30,7 @@ import com.example.testtracker.models.db.SavedMeals;
 import com.example.testtracker.presenter.home.CategoriesPresenterImpl;
 import com.example.testtracker.utils.DateUtile;
 import com.example.testtracker.view.adapter.CategoriesAdapter;
+import com.example.testtracker.view.forms.Dialog;
 import com.example.testtracker.view.interfaces.CategoriesView;
 import com.example.testtracker.models.allcountries.Country;
 import com.example.testtracker.models.allcountries.CountryRepositoryImpl;
@@ -65,8 +66,6 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     DailyMealPresenterImpl mealpresenter;
     CategoriesPresenterImpl catpresenter;
     CountriesPresenterImpl countrypresenter;
-    ImageView plan;
-    private static final String TAG = "MainActivity";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -89,7 +88,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         //recyclerView
         dailyrecyclerView = view.findViewById(R.id.dayrec);
         categoryrecyclerView = view.findViewById(R.id.catrec);
@@ -139,7 +138,6 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
 
     @Override
     public void addToFav() {
-        Log.i(TAG, "addToFav: ");
         Toast.makeText(getContext(), "Added to Fav", Toast.LENGTH_SHORT).show();
     }
 
@@ -194,15 +192,16 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
 
     @Override
     public void onMealClick(String mealId, View view) {
-        Log.i(TAG, "onMealClick: "+mealId);
-        if (mealpresenter != null) {
+        String userId = sharedPreferences.getString("id", null);
+        if (userId == null) {
+            Dialog.showAlertDialog(getContext(),getString(R.string.sign_up_for_more_details));
+        }else if (mealpresenter != null) {
             mealpresenter.fetchMealDetails(mealId);
         }
     }
 
     @Override
     public void showMealDetails(MealDetails.MealsDTO mealDetails) {
-        Log.i(TAG, "showMealDetails: "+mealDetails.getStrIngredient4());
         HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action =
                 HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealDetails);
         Navigation.findNavController(requireView()).navigate(action);
@@ -212,7 +211,6 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     public void onDateSelected(String formattedDate) {
         MealDetailsFragmentArgs args = MealDetailsFragmentArgs.fromBundle(getArguments());
         MealDetails.MealsDTO mealDetails = args.getMeal();
-        sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("id", null);
         SavedMeals planMeal = new SavedMeals(mealDetails.getIdMeal(), userId, formattedDate, mealDetails, false, true);
 

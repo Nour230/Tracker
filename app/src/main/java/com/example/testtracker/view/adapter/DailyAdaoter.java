@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.db.SavedMeals;
 import com.example.testtracker.models.mealdetails.MealDetails;
+import com.example.testtracker.view.forms.Dialog;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
 import com.google.android.material.button.MaterialButton;
 
@@ -35,6 +36,8 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
         this.listener = listener;
         this.dailyList = dailyList;
         this.context = context;
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
     }
 
 
@@ -62,9 +65,14 @@ public class DailyAdaoter extends RecyclerView.Adapter<DailyAdaoter.MealViewHold
             }
         });
         holder.fav.setOnClickListener(v -> {
-            if (userId != null && listener != null) {
-                listener.onButtonClick(favMeal);
-                holder.fav.setText("Added to Fav");
+            String Id = sharedPreferences.getString("id", null);
+            if(Id != null){
+                if (userId != null && listener != null) {
+                    listener.onButtonClick(favMeal);
+                    holder.fav.setText("Added to Fav");
+                }
+            }else{
+                Dialog.showAlertDialog(context,"Please Sign Up to add to Fav");
             }
         });
 

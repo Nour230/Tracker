@@ -36,5 +36,7 @@
     <string name="defult_web_clint_id">55553294447126-3lkg0v6necb3g96v06hud12jie94as0b.apps.googleusercontent.com</string>
     <string name="add_to_plan">Add To Plan</string>
     <string name="please_fill_in_all_the_fields">Please fill in all the fields</string>
+    <string name="wrong_email_or_password">Wrong Email Or Password</string>
     <string name="ok">Ok</string>
+    <string name="sign_up_for_more_details">Sign up for more details</string>
 </resources>
