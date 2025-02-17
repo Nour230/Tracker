@@ -68,7 +68,6 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
     }
 
     public void fetchMealDetails(String mealId) {
-
         repo.getMealDetails(mealId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

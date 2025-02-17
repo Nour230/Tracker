@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.testtracker.R;
 import com.example.testtracker.models.catandcountrymeals.CategoryMealsReposetoryImpl;
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
@@ -42,6 +43,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
     TextView name;
     DailyMealPresenterImpl mealpresenter;
     SharedPreferences sharedPreferences;
+    LottieAnimationView lottieAnimationView;
 
 
     public CategoriesMealsFragment() {
@@ -63,6 +65,7 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        lottieAnimationView = view.findViewById(R.id.lottieanimation);
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         name = view.findViewById(R.id.catMealName);
         recyclerView = view.findViewById(R.id.catmealsrec);
@@ -138,5 +141,17 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
     @Override
     public void onButtonClick(SavedMeals meal) {
 
+    }
+    @Override
+    public void showLoading() {
+        recyclerView.setVisibility(View.GONE);
+        lottieAnimationView.setVisibility(View.VISIBLE);
+        lottieAnimationView.playAnimation();
+    }
+    @Override
+    public void hideLoading() {
+        recyclerView.setVisibility(View.VISIBLE);
+        lottieAnimationView.setVisibility(View.GONE);
+        lottieAnimationView.pauseAnimation();
     }
 }

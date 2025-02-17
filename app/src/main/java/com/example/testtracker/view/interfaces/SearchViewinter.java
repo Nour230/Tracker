@@ -11,4 +11,5 @@ public interface SearchViewinter {
     void showCategories(List<Category> categories);
     void showCountries(List<Country> countries);
     void showError(String message);
+
 }
