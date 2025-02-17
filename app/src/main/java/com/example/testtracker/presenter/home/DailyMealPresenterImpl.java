@@ -3,6 +3,7 @@ package com.example.testtracker.presenter.home;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 
 import com.example.testtracker.models.dailymeal.MealRepositoryImpl;
 import com.example.testtracker.models.db.SavedMeals;
@@ -41,6 +42,7 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
 
     @Override
     public void getProducts() {
+        view.showLoading();
         repo.getAllMeals()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,11 +54,13 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
 
                     @Override
                     public void onSuccess(@NonNull List< MealDetails.MealsDTO> meals) {
+                        view.hideLoading();
                         view.showData(meals);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        view.hideLoading();
                         view.showError(e.getMessage());
                     }
 
@@ -64,6 +68,7 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
     }
 
     public void fetchMealDetails(String mealId) {
+
         repo.getMealDetails(mealId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -74,18 +79,16 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<MealDetails.MealsDTO> meals) {
-                        // Notify view to hide loading animation and show data
-                        view.hideLoading();
-                        view.showData(meals);
+                    public void onSuccess(MealDetails.@NonNull MealsDTO mealsDTO) {
+
+                        view.showMealDetails(mealsDTO);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        // Notify view to hide loading animation and show error
-                        view.hideLoading();
+                    public void onError(Throwable e) {
                         view.showError(e.getMessage());
                     }
+
                 });
     }
 

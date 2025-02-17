@@ -21,8 +21,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.CategoriesRepositoryImpl;
 import com.example.testtracker.models.allcategory.Category;
@@ -66,6 +69,8 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     DailyMealPresenterImpl mealpresenter;
     CategoriesPresenterImpl catpresenter;
     CountriesPresenterImpl countrypresenter;
+    LottieAnimationView progressBar;
+    ScrollView scrollView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -89,6 +94,9 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        progressBar = view.findViewById(R.id.lottieanimation);
+        scrollView = view.findViewById(R.id.scrollView);
+
         //recyclerView
         dailyrecyclerView = view.findViewById(R.id.dayrec);
         categoryrecyclerView = view.findViewById(R.id.catrec);
@@ -217,5 +225,18 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         if (mealDetails != null) {
             mealpresenter.addToPlan(planMeal); // Pass the meal details and selected date
         }
+    }
+
+    @Override
+    public void showLoading() {
+        scrollView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.playAnimation();
+    }
+    @Override
+    public void hideLoading() {
+        scrollView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        progressBar.pauseAnimation();
     }
 }
