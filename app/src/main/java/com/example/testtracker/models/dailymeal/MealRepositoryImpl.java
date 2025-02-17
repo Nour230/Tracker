@@ -52,6 +52,9 @@ public class MealRepositoryImpl {
     public Completable deleteMeal(SavedMeals meal) {
         return localDataSource.deleteMeal(meal);
     }
+    public Completable clearLocalDatabase() {
+        return localDataSource.clearLocalDatabase();
+    }
     public void getDataFromFiteBase(){
         localDataSource.fetchDataFromFirebase();
     }

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.9.0-alpha09"
+circleimageview = "3.1.0"
 converterGson = "2.9.0"
 firebaseAuthVersion = "23.2.0"
 firebaseBom = "33.9.0"
@@ -30,6 +31,7 @@ rxjavaVersion = "3.1.5"
 
 [libraries]
 adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "converterGson" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-v2320 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
