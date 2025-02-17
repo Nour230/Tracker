@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.testtracker.R;
 import com.example.testtracker.models.allcategory.Category;
 import com.example.testtracker.models.allcountries.Country;
@@ -47,7 +49,8 @@ public class SearchFragment extends Fragment implements SearchViewinter {
     private List<Object> allData = new ArrayList<>(); // Combined list for all data
     private PublishSubject<String> searchSubject = PublishSubject.create(); // RxJava subject for search queries
 
-
+    LottieAnimationView progressBar;
+    ScrollView scrollView;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -67,6 +70,8 @@ public class SearchFragment extends Fragment implements SearchViewinter {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        progressBar = view.findViewById(R.id.lottieanimation);
+        scrollView = view.findViewById(R.id.scrollView);
         super.onViewCreated(view, savedInstanceState);
         gridView = view.findViewById(R.id.searchgridview);
         chipsGroup = view.findViewById(R.id.chipsgroup);
@@ -178,6 +183,18 @@ public class SearchFragment extends Fragment implements SearchViewinter {
     @Override
     public void showError(String message) {
 
+    }
+    @Override
+    public void showLoading() {
+        scrollView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.playAnimation();
+    }
+    @Override
+    public void hideLoading() {
+        scrollView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        progressBar.pauseAnimation();
     }
 
 //    @Override
