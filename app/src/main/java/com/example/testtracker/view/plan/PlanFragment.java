@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,17 +22,19 @@ import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.presenter.plan.PlanPresenterImpl;
 import com.example.testtracker.view.adapter.FavAdapter;
 import com.example.testtracker.view.adapter.PlanAdapter;
+import com.example.testtracker.view.fav.FavFragmentDirections;
+import com.example.testtracker.view.interfaces.DailyMealView;
+import com.example.testtracker.view.interfaces.OnMealClickListener;
 import com.example.testtracker.view.interfaces.PlanView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlanFragment extends Fragment implements PlanView {
+public class PlanFragment extends Fragment implements PlanView , DailyMealView, OnMealClickListener {
     RecyclerView satrec, sunrec, monrec, tuerec, wedrec, thurec, frirec;
     private PlanAdapter adapter;
     private PlanPresenterImpl presenter;
-    LinearLayoutManager linearLayoutManager;
 
     List<MealDetails.MealsDTO> satmeals= new ArrayList<>(),
             sunmeals= new ArrayList<>(),
@@ -88,47 +91,60 @@ public class PlanFragment extends Fragment implements PlanView {
             switch (day){
                 case "Saturday":
                     satmeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), satmeals);
+                    adapter = new PlanAdapter(getContext(), satmeals, this);
                     satrec.setAdapter(adapter);
                     adapter.updateData(satmeals);
                     break;
                 case "Sunday":
                     sunmeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), sunmeals);
+                    adapter = new PlanAdapter(getContext(), sunmeals, this);
                     sunrec.setAdapter(adapter);
                     adapter.updateData(sunmeals);
                     break;
                 case "Monday":
                     monmeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), monmeals);
+                    adapter = new PlanAdapter(getContext(), monmeals, this);
                     monrec.setAdapter(adapter);
                     adapter.updateData(monmeals);
                     break;
                 case "Tuesday":
                     tuemeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), tuemeals);
+                    adapter = new PlanAdapter(getContext(), tuemeals, this);
                     tuerec.setAdapter(adapter);
                     adapter.updateData(tuemeals);
                     break;
                 case "Wednesday":
                     wedmeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), wedmeals);
+                    adapter = new PlanAdapter(getContext(), wedmeals, this);
                     wedrec.setAdapter(adapter);
                     adapter.updateData(wedmeals);
                     break;
                 case "Thursday":
                     thumeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), thumeals);
+                    adapter = new PlanAdapter(getContext(), thumeals, this);
                     thurec.setAdapter(adapter);
                     adapter.updateData(thumeals);
                     break;
                 case "Friday":
                     frimeals.add(savedMeals.getMeal());
-                    adapter = new PlanAdapter(getContext(), frimeals);
+                    adapter = new PlanAdapter(getContext(), frimeals, this);
                     frirec.setAdapter(adapter);
                     adapter.updateData(frimeals);
                     break;
             }
         }
     }
+    @Override
+    public void onMealClick(String mealId, View view) {
+        if (presenter != null) {
+            presenter.fetchMealDetails(mealId);
+        }
+    }
+    @Override
+    public void showMealDetails(MealDetails.MealsDTO mealDetails) {
+        PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action =
+                PlanFragmentDirections.actionPlanFragmentToMealDetailsFragment(mealDetails);
+        Navigation.findNavController(requireView()).navigate(action);
+    }
+
 }

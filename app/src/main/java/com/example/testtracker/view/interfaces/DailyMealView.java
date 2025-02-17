@@ -11,5 +11,7 @@ public interface DailyMealView {
     default void addToPlan(){}
 
    default void showError(String message){}
+    default void showLoading() {}
+    default void hideLoading() {}
     default void showMealDetails(MealDetails.MealsDTO mealDetails){}
 }

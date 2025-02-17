@@ -137,6 +137,9 @@
         <action
             android:id="@+id/action_planFragment_to_favFragment"
             app:destination="@id/favFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

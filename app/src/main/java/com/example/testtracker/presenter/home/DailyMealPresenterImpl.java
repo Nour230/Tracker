@@ -74,15 +74,18 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
                     }
 
                     @Override
-                    public void onSuccess(MealDetails.@NonNull MealsDTO mealsDTO) {
-                        view.showMealDetails(mealsDTO);
+                    public void onSuccess(@NonNull List<MealDetails.MealsDTO> meals) {
+                        // Notify view to hide loading animation and show data
+                        view.hideLoading();
+                        view.showData(meals);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
+                        // Notify view to hide loading animation and show error
+                        view.hideLoading();
                         view.showError(e.getMessage());
                     }
-
                 });
     }
 
