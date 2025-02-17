@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +22,13 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MealViewHolder> {
     private Context context;
     private List<MealDetails.MealsDTO> mealsList;
+    private OnMealClickListener listener;
 
-    public PlanAdapter(Context context, List<MealDetails.MealsDTO> mealsList) {
+
+    public PlanAdapter(Context context, List<MealDetails.MealsDTO> mealsList, OnMealClickListener listener) {
         this.context = context;
         this.mealsList = mealsList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -41,6 +45,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MealViewHolder
         holder.area.setText("Area: " + meal.getStrArea());
         holder.category.setText("Category: " + meal.getStrCategory());
         Glide.with(context).load(meal.getStrMealThumb()).into(holder.image);
+        holder.cardView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onMealClick(meal.getIdMeal(), v);
+            }
+        });
 
     }
 
@@ -57,6 +66,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MealViewHolder
     public static class MealViewHolder extends RecyclerView.ViewHolder {
         TextView name, area, category;
         ImageView image;
+        CardView cardView;
 
 
         public MealViewHolder(@NonNull View itemView) {
@@ -65,7 +75,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MealViewHolder
             image = itemView.findViewById(R.id.planmealImage);
             area = itemView.findViewById(R.id.planmealArea);
             category = itemView.findViewById(R.id.planmealCat);
-
+            cardView = itemView.findViewById(R.id.daymealplan);
         }
     }
 

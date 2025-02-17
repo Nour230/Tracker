@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testtracker.R;
 import com.example.testtracker.models.db.SavedMeals;
+import com.example.testtracker.models.mealdetails.MealDetails;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
 import com.google.android.material.button.MaterialButton;
 
@@ -48,6 +51,12 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MealViewHolder> 
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, mealsList.size());
         });
+        holder.cardView.setOnClickListener(v->{
+            MealDetails.MealsDTO mealDTO = meal.getMeal();
+            if (mealDTO != null && listener != null) {
+                listener.onMealClick(mealDTO.getIdMeal(), v);
+            }
+        });
     }
 
     @Override
@@ -64,6 +73,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MealViewHolder> 
         TextView name, area, category;
         ImageView image;
         MaterialButton deletFromFav;
+        ConstraintLayout cardView;
 
         public MealViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +82,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MealViewHolder> 
             area = itemView.findViewById(R.id.mealArea);
             category = itemView.findViewById(R.id.mealCat);
             deletFromFav = itemView.findViewById(R.id.addtofav);
+            cardView = itemView.findViewById(R.id.favmeal);
         }
     }
 }

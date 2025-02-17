@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface DailyMealView {
     default  void showData(List< MealDetails.MealsDTO> products){}
-     void addToFav();
+     default void addToFav(){}
     default void addToPlan(){}
 
-    void showError(String message);
-    void showMealDetails(MealDetails.MealsDTO mealDetails);
+   default void showError(String message){}
+    default void showLoading() {}
+    default void hideLoading() {}
+    default void showMealDetails(MealDetails.MealsDTO mealDetails){}
 }

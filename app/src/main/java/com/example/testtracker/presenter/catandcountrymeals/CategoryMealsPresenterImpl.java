@@ -96,25 +96,4 @@ public class CategoryMealsPresenterImpl implements CategoryMealsPresenter {
                 });
     }
 
-    @Override
-    public void addToFav(SavedMeals meal) {
-        Log.i("MainActivity", "addToFav fun: "+meal.getIdMeal());
-//        repo.addMeal(meal)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        () -> {
-//                            view.addToFav();
-//                        },
-//                        error -> {
-//                            view.showError(error.getMessage());}
-//                );
-
-    }
-
-    @Override
-    public void addToPlan(SavedMeals meal) {
-
-    }
-
 }
