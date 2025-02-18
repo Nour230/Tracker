@@ -40,5 +40,7 @@
     <string name="ok">Ok</string>
     <string name="sign_up_for_more_details">Sign up for more details</string>
     <string name="logout">Logout</string>
-    <string name="welcom">Welcom</string>
+    <string name="welcom">Welcome</string>
+    <string name="delete_from_fav">Delete from Fav</string>
+    <string name="confirm_passwords_do_not_match_password">Confirm Passwords do not match Password</string>
 </resources>

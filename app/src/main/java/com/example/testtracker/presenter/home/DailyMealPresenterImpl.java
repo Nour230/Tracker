@@ -137,22 +137,18 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
             myauth.signOut();
         }
 
-        // Clear SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
 
-        // Clear Room database
         repo.clearLocalDatabase()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Log.d("Logout", "Local database cleared"),
                         throwable -> Log.e("Logout", "Failed to clear local database", throwable));
 
-        // Clear application cache
         clearApplicationCache();
 
-        // Exit the app
         navigateToLoginScreen(view);
     }
     private void navigateToLoginScreen(View view) {
@@ -185,5 +181,9 @@ public class DailyMealPresenterImpl implements DailyMealPresenter {
             }
         }
         return dir != null && dir.delete();
+    }
+    public void sendData(SavedMeals meal){
+        String id = sharedPreferences.getString("id", null);
+        myRef.child("Users").child(id).child(meal.getIdMeal()).child(meal.getDate()).setValue(meal);
     }
 }

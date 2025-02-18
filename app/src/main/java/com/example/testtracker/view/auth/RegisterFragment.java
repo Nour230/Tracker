@@ -2,6 +2,7 @@ package com.example.testtracker.view.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class RegisterFragment extends Fragment implements RegisterView {
     EditText email, pass, confirmpass;
     MaterialButton Skip;
     TextView login;
+    SharedPreferences sharedPreferences;
+
     RegisterPresenter presenter;
     ImageButton google;
     private FirebaseAuth myauth;
@@ -66,6 +69,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
         confirmpass = view.findViewById(R.id.confirmpass);
         google = view.findViewById(R.id.googleregister);
         login = view.findViewById(R.id.login);
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         myauth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -105,12 +109,8 @@ public class RegisterFragment extends Fragment implements RegisterView {
         if (pass.equals(confirmpass)) {
             presenter.register(email, pass);
         } else {
-            //display error
+            Dialog.showAlertDialog(getContext(),getString(R.string.confirm_passwords_do_not_match_password));
         }
-    }
-
-    private void signout() {
-        myauth.signOut();
     }
 
 
@@ -129,6 +129,11 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void registerSuccess() {
+        String id = presenter.getid();
+        sharedPreferences.edit().putString("email", email.getText().toString()).apply();
+        sharedPreferences.edit().putString("pass", pass.getText().toString()).apply();
+        sharedPreferences.edit().putString("id", id).apply();
+        sharedPreferences.edit().putBoolean("isLogged", true).apply();
         Navigation.findNavController(requireView())
                 .navigate(R.id.action_registerFragment_to_homeFragment);
     }
@@ -140,6 +145,11 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @Override
     public void googleSignInSuccess() {
+        String id = presenter.getid();
+        String email = presenter.getEmail();
+        sharedPreferences.edit().putString("email", email).apply();
+        sharedPreferences.edit().putString("id", id).apply();
+        sharedPreferences.edit().putBoolean("isLogged", true).apply();
         Navigation.findNavController(requireView())
                 .navigate(R.id.action_registerFragment_to_homeFragment);
     }

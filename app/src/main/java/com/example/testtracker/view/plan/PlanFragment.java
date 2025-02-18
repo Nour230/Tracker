@@ -85,7 +85,6 @@ public class PlanFragment extends Fragment implements PlanView , DailyMealView, 
 
     @Override
     public void showPlanMeals(List<SavedMeals> groupedMeals) {
-        Log.i("MainActivity", "showPlanMeals: "+groupedMeals.size());
         for(SavedMeals savedMeals : groupedMeals){
             String day = savedMeals.getDate();
             switch (day){

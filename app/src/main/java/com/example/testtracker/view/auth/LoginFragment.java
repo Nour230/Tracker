@@ -39,7 +39,6 @@ public class LoginFragment extends Fragment implements LoginView {
     SharedPreferences sharedPreferences;
     private GoogleSignInClient googleSignInClient;
 
-    private ImageButton googleLoginButton;
     LoginPresenter presenter;
 
     @Override
@@ -56,7 +55,6 @@ public class LoginFragment extends Fragment implements LoginView {
         emailEditText = view.findViewById(R.id.edtEmail);
         passwordEditText = view.findViewById(R.id.edtPass);
         signupTextView = view.findViewById(R.id.signup);
-        googleLoginButton = view.findViewById(R.id.googleLogin);
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         myauth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -86,9 +84,7 @@ public class LoginFragment extends Fragment implements LoginView {
             }
         });
 
-        googleLoginButton.setOnClickListener(v -> {
-            signIn();
-        });
+
     }
 
     @Override

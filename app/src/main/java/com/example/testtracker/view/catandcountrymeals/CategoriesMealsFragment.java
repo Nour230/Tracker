@@ -77,12 +77,9 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
         presenter = new CategoryMealsPresenterImpl(this,
                 CategoryMealsReposetoryImpl.getInstance(getContext()));
         String categoryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
-        Log.i(TAG, "onViewCreated: " + categoryName);
         String categoryOrCountryName = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getCategoryName();
         boolean isCountry = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getIsCountry();
         boolean isIngrediant = CategoriesMealsFragmentArgs.fromBundle(getArguments()).getIsIngrediant();
-
-        Log.i(TAG, "onViewCreated: Name=" + categoryOrCountryName + " | isCountry=" + isCountry);
 
         // Use the flag to determine the appropriate API call
         if (isCountry) {
@@ -119,7 +116,6 @@ public class CategoriesMealsFragment extends Fragment implements CategoryMealsVi
 
     @Override
     public void showMealDetails(MealDetails.MealsDTO mealDetails) {
-        Log.i(TAG, "showMealDetails: " + mealDetails.getStrIngredient4());
         CategoriesMealsFragmentDirections.ActionCategoriesMealsFragmentToMealDetailsFragment action =
                 CategoriesMealsFragmentDirections.actionCategoriesMealsFragmentToMealDetailsFragment(mealDetails);
         Navigation.findNavController(requireView()).navigate(action);

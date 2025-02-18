@@ -1,14 +1,12 @@
 package com.example.testtracker.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -45,6 +43,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.MealViewHolder> 
         holder.area.setText("Area: " + meal.getMeal().getStrArea());
         holder.category.setText("Category: " + meal.getMeal().getStrCategory());
         Glide.with(context).load(meal.getMeal().getStrMealThumb()).into(holder.image);
+        holder.deletFromFav.setText(R.string.delete_from_fav);
         holder.deletFromFav.setOnClickListener(v -> {
             listener.deleteFromFav(meal);
             mealsList.remove(position);

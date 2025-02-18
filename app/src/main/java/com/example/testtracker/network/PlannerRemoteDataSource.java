@@ -1,24 +1,18 @@
 package com.example.testtracker.network;
 
-import android.util.Log;
 
 import com.example.testtracker.models.allcategory.AllCategories;
 import com.example.testtracker.models.allcountries.AllCounties;
-import com.example.testtracker.models.catandcountrymeals.CategoryAllMeals;
 import com.example.testtracker.models.dailymeal.AllMeals;
 import com.example.testtracker.models.mealdetails.AllIngrediants;
 import com.example.testtracker.models.mealdetails.MealDetails;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlannerRemoteDataSource implements RemoteDataSource {
-    private static final String TAG = "productClient";
     private static final String Base_url = "https://www.themealdb.com/api/json/v1/1/";
     private static PlannerRemoteDataSource client = null;
     private final AllNetWorkService mealservice;

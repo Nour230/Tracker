@@ -7,5 +7,6 @@
     <color name="home_background">#593232</color>
     <color name="home_card_color">#F8EAD8</color>
     <color name="green">#4CAF50</color>
+    <color name="login">#AA8B56</color>
     <color name="red">#F44336</color>
 </resources>

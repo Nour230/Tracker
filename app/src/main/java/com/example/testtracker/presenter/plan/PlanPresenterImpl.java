@@ -27,8 +27,7 @@ public class PlanPresenterImpl implements PlanPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        meals -> {view.showPlanMeals(meals);
-                            Log.i("MainActivity", "getPlanMeals: "+meals.size());},
+                        meals -> view.showPlanMeals(meals),
                         error -> view.showError(error.getMessage())
                 );
     }

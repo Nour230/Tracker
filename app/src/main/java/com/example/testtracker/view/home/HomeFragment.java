@@ -25,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.testtracker.R;
@@ -170,12 +169,10 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
 
     @Override
     public void addToFav() {
-        Toast.makeText(getContext(), "Added to Fav", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void addToPlan() {
-        Toast.makeText(getContext(), "Added to Plan", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -218,6 +215,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     public void onButtonClick(SavedMeals meal) {
         if (mealpresenter != null) {
             mealpresenter.addToFav(meal);
+            mealpresenter.sendData(meal);
         }
     }
 
