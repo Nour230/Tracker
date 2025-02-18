@@ -144,6 +144,7 @@ public class PlanFragment extends Fragment implements PlanView , DailyMealView, 
     public void showMealDetails(MealDetails.MealsDTO mealDetails) {
         PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action =
                 PlanFragmentDirections.actionPlanFragmentToMealDetailsFragment(mealDetails);
+        action.setIsPlan(true);
         Navigation.findNavController(requireView()).navigate(action);
     }
 

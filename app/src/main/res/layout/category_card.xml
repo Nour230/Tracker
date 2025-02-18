@@ -30,18 +30,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
-        <TextView
-            android:id="@+id/catName"
-            android:layout_width="100dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="52dp"
-            android:fontFamily="@font/dancing_script_bold"
-            android:text="TextView"
-            android:textColor="@color/home_background"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/catImage"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/catName"
+        android:layout_width="100dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/poppins_light_italic"
+        android:text="TextView"
+        android:textColor="@color/home_background"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/catImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,7 +57,9 @@ public class MealLocalDataSourceImpl {
     public Completable deleteMeal(SavedMeals id) {
         return dao.deleteMeal(id);
     }
-
+    public Completable clearLocalDatabase() {
+        return dao.deleteAllMeals();
+    }
 
     public Single<List<SavedMeals>> getPlanMeals() {
         return dao.getPlanMeals();

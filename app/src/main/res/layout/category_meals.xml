@@ -37,7 +37,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="64dp"
-        android:fontFamily="@font/dancing_script_bold"
+        android:fontFamily="@font/poppins_light_italic"
         android:text="TextView"
         android:textColor="@color/home_background"
         android:textSize="24sp"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
@@ -23,6 +24,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -51,6 +53,7 @@ import com.example.testtracker.network.PlannerRemoteDataSource;
 import com.example.testtracker.view.interfaces.OnDateSelectedListener;
 import com.example.testtracker.view.interfaces.OnMealClickListener;
 import com.example.testtracker.view.mealdetails.MealDetailsFragmentArgs;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,8 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements OnMealClickListener, CountriesView, OnDateSelectedListener,
          DailyMealView, CategoriesView {
-
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
     DailyAdaoter dailyadapter;
     CategoriesAdapter categoryadapter;
     countriesAdapter countryadapter;
@@ -71,6 +75,7 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     CountriesPresenterImpl countrypresenter;
     LottieAnimationView progressBar;
     ScrollView scrollView;
+    ImageView imageView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,9 +98,17 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        imageView = view.findViewById(R.id.slidemnue);
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         progressBar = view.findViewById(R.id.lottieanimation);
         scrollView = view.findViewById(R.id.scrollView);
+        drawerLayout = view.findViewById(R.id.drawerLayout);
+        navigationView = view.findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerText = headerView.findViewById(R.id.txtemail);
+
+        // Set text dynamically
+        headerText.setText(sharedPreferences.getString("email", "")); // Replace with your desired text
 
         //recyclerView
         dailyrecyclerView = view.findViewById(R.id.dayrec);
@@ -134,7 +147,18 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         countrypresenter = new CountriesPresenterImpl(this,
                 CountryRepositoryImpl.getInstance(getContext()));
         countrypresenter.getCountries();
+        imageView.setOnClickListener(v -> {
+            // Open the drawer when the menu icon is clicked
+            drawerLayout.openDrawer(navigationView);
+        });
 
+        navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.logout) {
+                mealpresenter.logout(view);
+                return true;
+            }
+            return false;
+        });
 
     }
 
@@ -239,4 +263,6 @@ public class HomeFragment extends Fragment implements OnMealClickListener, Count
         progressBar.setVisibility(View.GONE);
         progressBar.pauseAnimation();
     }
+
+
 }

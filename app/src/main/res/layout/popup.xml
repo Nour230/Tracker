@@ -17,10 +17,11 @@
         android:layout_height="wrap_content"
         android:text="@string/please_fill_in_all_the_fields"
         android:textSize="16sp"
+        android:paddingEnd="20dp"
         android:textColor="@color/black"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:fontFamily="@font/dancing_script_bold"/>
+        android:fontFamily="@font/poppins_light_italic"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_dismiss"
@@ -30,6 +31,6 @@
         android:textColor="@color/white"
         app:backgroundTint="@color/home_background"
         app:cornerRadius="10dp"
-        android:fontFamily="@font/dancing_script_bold"/>
+        android:fontFamily="@font/poppins_light_italic"/>
 
 </LinearLayout>

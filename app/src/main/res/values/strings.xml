@@ -39,4 +39,6 @@
     <string name="wrong_email_or_password">Wrong Email Or Password</string>
     <string name="ok">Ok</string>
     <string name="sign_up_for_more_details">Sign up for more details</string>
+    <string name="logout">Logout</string>
+    <string name="welcom">Welcom</string>
 </resources>
