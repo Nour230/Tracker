@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/home_card_color"
+    android:background="@color/home_background"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="64dp"
+        android:layout_width="97dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/person"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/person" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/personemail"
@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:fontFamily="@font/poppins_light_italic"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +34,10 @@
         android:id="@+id/txtemail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="64dp"
         android:paddingBottom="20dp"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:fontFamily="@font/poppins_light_italic"
         app:layout_constraintStart_toStartOf="parent"

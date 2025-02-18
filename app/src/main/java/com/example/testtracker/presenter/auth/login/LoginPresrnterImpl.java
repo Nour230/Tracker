@@ -58,7 +58,6 @@ public class LoginPresrnterImpl implements LoginPresenter {
                 view.loginFailure("ID token is null");
             }
         } catch (ApiException e) {
-            Log.e("GoogleSignIn", "Google Sign-In failed", e);
             view.loginFailure("Google Sign-In failed");
         }
     }

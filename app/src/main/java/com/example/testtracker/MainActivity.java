@@ -5,16 +5,19 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.BTN_NAV_View);
         lottieAnimationView = findViewById(R.id.lottieanimation);
         home = findViewById(R.id.fragmentContainerView);
+        changeSystemNavigationBarColor();
 
         // Find the NavHostFragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -77,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Log.e(TAG, "NavHostFragment is null. Check your layout and navigation setup.");
         }
 
         // Register network callback
@@ -128,6 +131,17 @@ public class MainActivity extends AppCompatActivity {
         // Unregister network callback to avoid memory leaks
         if (connectivityManager != null && networkCallback != null) {
             connectivityManager.unregisterNetworkCallback(networkCallback);
+        }
+    }
+    private void changeSystemNavigationBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                View decorView = window.getDecorView();
+                int flags = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                decorView.setSystemUiVisibility(flags);
+            }
         }
     }
 

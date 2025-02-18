@@ -58,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="64dp"
                     android:layout_marginTop="24dp"
+                    android:textColor="@color/home_card_color"
                     android:fontFamily="@font/poppins_light_italic"
                     android:text="@string/all_categories"
                     android:textSize="33sp"
@@ -79,6 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="64dp"
+                    android:textColor="@color/home_card_color"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/poppins_light_italic"
                     android:text="@string/all_countries"
@@ -101,20 +103,20 @@
 
                 <ImageView
                     android:id="@+id/slidemnue"
-                    android:layout_width="61dp"
-                    android:layout_height="51dp"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="42dp"
                     android:src="@drawable/setting"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/logo"
-                    android:layout_width="77dp"
-                    android:layout_height="71dp"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginStart="224dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="42dp"
                     android:src="@drawable/homelogo"
                     app:layout_constraintStart_toEndOf="@+id/slidemnue"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -140,6 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/home_card_color"
         app:menu="@menu/side_menu_item"
         app:headerLayout="@layout/hreader"/>
 </androidx.drawerlayout.widget.DrawerLayout>

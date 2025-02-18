@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class RegisterPresenterImpl implements RegisterPresenter{
@@ -35,6 +36,18 @@ public class RegisterPresenterImpl implements RegisterPresenter{
                 });
     }
 
+    @Override
+    public String getid() {
+        FirebaseUser currentUser = myauth.getCurrentUser();
+        String id = currentUser.getUid();
+        return  id;
+    }
+
+    public String getEmail(){
+        FirebaseUser currentUser = myauth.getCurrentUser();
+        String email = currentUser.getEmail();
+        return  email;
+    }
 
 
     @Override
@@ -48,7 +61,6 @@ public class RegisterPresenterImpl implements RegisterPresenter{
                 view.googleSignInFailure("ID token is null");
             }
         } catch (ApiException e) {
-            Log.e("GoogleSignIn", "Google Sign-In failed", e);
             view.googleSignInFailure("Google Sign-In failed");
         }
     }
