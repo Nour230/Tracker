@@ -49,7 +49,7 @@ public class SplashFragment extends Fragment {
                             .navigate(R.id.action_splashFragment_to_homeFragment);
                 }else {
                     Navigation.findNavController(view)
-                            .navigate(R.id.action_splashFragment_to_loginFragment);
+                            .navigate(R.id.action_splashFragment_to_registerFragment);
                 }
 
             }

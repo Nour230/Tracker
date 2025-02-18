@@ -96,11 +96,13 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView, On
         boolean isPlan = args.getIsPlan();
         if (isPlan) {
             plan.setText("Added to Plan");
+            plan.setTextColor(getResources().getColor(R.color.white));
             plan.setEnabled(false);
         }
         boolean isFav = args.getIsFav();
         if (isFav) {
             fav.setText("Added to Fav");
+            plan.setTextColor(getResources().getColor(R.color.white));
             fav.setEnabled(false);
         }
 
@@ -178,12 +180,14 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView, On
     @Override
     public void addToFav() {
         fav.setText("Added to Fav");
+        fav.setTextColor(getResources().getColor(R.color.white));
         fav.setEnabled(false);
     }
 
     @Override
     public void addToPlan() {
         plan.setText("Added to Plan");
+        plan.setTextColor(getResources().getColor(R.color.white));
         plan.setEnabled(false);
     }
 
