@@ -119,6 +119,7 @@ public class FavFragment extends Fragment implements FavView, OnMealClickListene
     public void showMealDetails(MealDetails.MealsDTO mealDetails) {
         FavFragmentDirections.ActionFavFragmentToMealDetailsFragment action =
                 FavFragmentDirections.actionFavFragmentToMealDetailsFragment(mealDetails);
+        action.setIsFav(true);
         Navigation.findNavController(requireView()).navigate(action);
     }
 

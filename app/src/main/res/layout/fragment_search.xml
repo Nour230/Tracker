@@ -38,7 +38,7 @@
             android:layout_marginStart="42dp"
             android:backgroundTint="@color/home_card_color"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/dancing_script_bold"
+            android:fontFamily="@font/poppins_light_italic"
             android:text="@string/country"
             android:textColor="@color/home_background" />
 
@@ -50,7 +50,7 @@
             android:layout_marginStart="42dp"
             android:backgroundTint="@color/home_card_color"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/dancing_script_bold"
+            android:fontFamily="@font/poppins_light_italic"
             android:text="@string/category"
             android:textColor="@color/home_background" />
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/dancing_script_bold"
+            android:fontFamily="@font/poppins_light_italic"
             android:text="@string/ingrediant"
             android:textColor="@color/home_background" />
     </com.google.android.material.chip.ChipGroup>

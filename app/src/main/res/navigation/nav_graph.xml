@@ -120,6 +120,12 @@
             android:name="meal"
             app:argType="com.example.testtracker.models.mealdetails.MealDetails$MealsDTO"
             app:nullable="true" />
+        <argument
+            android:name="isFav"
+            android:defaultValue="false" />
+        <argument
+            android:name="isPlan"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/planFragment"

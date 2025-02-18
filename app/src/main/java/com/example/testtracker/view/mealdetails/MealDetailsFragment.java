@@ -94,6 +94,16 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView, On
         // Retrieve passed MealDetails object
         MealDetailsFragmentArgs args = MealDetailsFragmentArgs.fromBundle(getArguments());
         MealDetails.MealsDTO mealDetails = args.getMeal();
+        boolean isPlan = args.getIsPlan();
+        if (isPlan) {
+            plan.setText("Added to Plan");
+            plan.setEnabled(false);
+        }
+        boolean isFav = args.getIsFav();
+        if (isFav) {
+            fav.setText("Added to Fav");
+            fav.setEnabled(false);
+        }
 
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("id", null);
@@ -165,22 +175,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView, On
         }
     }
 
-    @Override
-    public void showMealDetails(MealDetails.MealsDTO meal) {
-    }
 
     @Override
     public void addToFav() {
         fav.setText("Added to Fav");
-        Log.i(TAG, "addToFav: ");
-        Toast.makeText(getContext(), "Added to Fav", Toast.LENGTH_SHORT).show();
+        fav.setEnabled(false);
     }
 
     @Override
     public void addToPlan() {
-        fav.setText("Added to Plan");
-        Log.i(TAG, "addToPlan: ");
-        Toast.makeText(getContext(), "Added to Plan", Toast.LENGTH_SHORT).show();
+        plan.setText("Added to Plan");
+        plan.setEnabled(false);
     }
 
     @Override
@@ -204,4 +209,5 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView, On
             presenter.sendData(planMeal);
         }
     }
+
 }
